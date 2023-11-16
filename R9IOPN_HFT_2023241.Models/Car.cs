@@ -13,11 +13,19 @@ namespace R9IOPN_HFT_2023241.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CarId { get; set; }
+
         [StringLength(100)]
         public string Model { get; set; }
+
         public int BrandId { get; set; }
+
+        public string Color { get; set; }
+        public int Year { get; set; }
+        public decimal Price { get; set; }
+
         [NotMapped]
-        public virtual Brand Brand { get; set; }
+        public virtual Brand Brands { get; set; }
+
         [NotMapped]
         public virtual ICollection<Lease> Leases { get; set; }
     }

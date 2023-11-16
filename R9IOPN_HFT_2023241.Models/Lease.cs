@@ -13,10 +13,17 @@ namespace R9IOPN_HFT_2023241.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int LeaseId { get; set; }
+
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
+
+        public decimal LeaseAmount { get; set; }
+        public string LesseeName { get; set; }
+        public bool IsActive { get; set; }
+
         public int CarId { get; set; }
+
         [NotMapped]
-        public virtual Car Car { get; set; }
+        public virtual Car Cars { get; set; }
     }
 }

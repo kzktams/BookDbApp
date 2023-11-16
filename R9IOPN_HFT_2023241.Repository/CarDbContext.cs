@@ -41,19 +41,33 @@ namespace R9IOPN_HFT_2023241.Repository
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Car>()
+                .HasOne(t => t.Brands)
+                .WithMany(t => t.Cars)
+                .HasForeignKey(t => t.BrandId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Lease>()
+                .HasOne(t => t.Cars)
+                .WithMany(t => t.Leases)
+                .HasForeignKey(t => t.CarId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+
             modelBuilder.Entity<Brand>().HasData(
-                new Brand { BrandId = 1, Name = "Toyota" },
-                new Brand { BrandId = 2, Name = "Honda" }
+                new Brand { BrandId = 1, Name = "BrandA", Headquarters = "CityA", YearEstablished = 1950, Founder = "FounderA" },
+                new Brand { BrandId = 2, Name = "BrandB", Headquarters = "CityB", YearEstablished = 1960, Founder = "FounderB" }
             );
 
             modelBuilder.Entity<Car>().HasData(
-                new Car { CarId = 1, Model = "Corolla", BrandId = 1 },
-                new Car { CarId = 2, Model = "Civic", BrandId = 2 }
+                new Car { CarId = 1, Model = "ModelX", Color = "Red", Year = 2020, Price = 30000, BrandId = 1 },
+                new Car { CarId = 2, Model = "ModelY", Color = "Blue", Year = 2021, Price = 35000, BrandId = 2 }
             );
 
+
             modelBuilder.Entity<Lease>().HasData(
-                new Lease { LeaseId = 1, StartDate = DateTime.Now, EndDate = DateTime.Now.AddMonths(1), CarId = 1 },
-                new Lease { LeaseId = 2, StartDate = DateTime.Now, EndDate = DateTime.Now.AddMonths(1), CarId = 2 }
+                new Lease { LeaseId = 1, StartDate = new DateTime(2023, 1, 1), EndDate = new DateTime(2023, 12, 31), LeaseAmount = 1000, LesseeName = "John Doe", IsActive = true, CarId = 1 },
+                new Lease { LeaseId = 2, StartDate = new DateTime(2023, 2, 1), EndDate = new DateTime(2023, 11, 30), LeaseAmount = 900, LesseeName = "Jane Smith", IsActive = true, CarId = 2 }
             );
         }
 
