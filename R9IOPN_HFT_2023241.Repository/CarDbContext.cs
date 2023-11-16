@@ -33,6 +33,11 @@ namespace R9IOPN_HFT_2023241.Repository
         //    // Például egyéni indexek, táblanév beállítások, stb.
         //}
         // ... a XYZDbContext osztályon belül ...
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+
+            base.OnConfiguring(optionsBuilder);
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
