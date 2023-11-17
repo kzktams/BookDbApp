@@ -20,6 +20,11 @@ namespace R9IOPN_HFT_2023241.Models
         public string Country { get; set; }
 
         public virtual ICollection<Book> Books { get; set; }
+
+        public Author()
+        {
+
+        }
     }
 
 }

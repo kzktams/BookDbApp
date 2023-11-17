@@ -8,30 +8,26 @@ using System.Threading.Tasks;
 
 namespace R9IOPN_HFT_2023241.Models
 {
-    public class Book
+    public class User
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int BookId { get; set; }
-
-        [StringLength(200)]
-        public string Title { get; set; }
-
-        public int PublicationYear { get; set; }
+        public int UserId { get; set; }
 
         [StringLength(100)]
-        public string Genre { get; set; }
+        public string Name { get; set; }
 
-        public int AuthorId { get; set; }
-        public virtual Author Author { get; set; }
+        [StringLength(100)]
+        public string Email { get; set; }
 
+        [StringLength(20)]
+        public string Phone { get; set; }
 
         public virtual ICollection<Loan> Loans { get; set; }
 
-        public Book()
+        public User()
         {
 
         }
     }
-
 }
