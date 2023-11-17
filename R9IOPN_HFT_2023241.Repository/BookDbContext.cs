@@ -4,9 +4,9 @@ using R9IOPN_HFT_2023241.Models;
 
 namespace R9IOPN_HFT_2023241.Repository
 {
-    public class CarDbContext : DbContext
+    public class BookDbContext : DbContext
     {
-        public CarDbContext()
+        public BookDbContext()
         
         {
             this.Database.EnsureCreated();
