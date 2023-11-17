@@ -15,7 +15,7 @@ namespace R9IOPN_HFT_2023241.Repository
         public DbSet<Author> Authors { get; set; }
         public DbSet<Book> Books { get; set; }
         public DbSet<Loan> Loans { get; set; }
-        public DbSet<User> User { get; set; }
+        public DbSet<User> Users { get; set; }
 
 
 
@@ -25,8 +25,8 @@ namespace R9IOPN_HFT_2023241.Repository
             if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder
-                    .UseSqlServer(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Book.mdf;Integrated Security=True;MultipleActiveResultSets=True")
-                    .UseLazyLoadingProxies();
+                    .UseLazyLoadingProxies()
+                    .UseInMemoryDatabase("book");
             }
         }
 
