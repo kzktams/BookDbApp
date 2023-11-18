@@ -12,7 +12,7 @@ namespace R9IOPN_HFT_2023241.Repository
         public LoanRepository(BookDbContext ctx) : base(ctx)
         {
         }
-
+        
         public override Loan Read(int id)
         {
             return context.Loans.FirstOrDefault(l => l.LoanId== id);
