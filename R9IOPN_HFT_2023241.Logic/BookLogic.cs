@@ -44,11 +44,13 @@ namespace R9IOPN_HFT_2023241.Logic
 
         //nonCRUD
 
+        //Listing the  boooks of a certain author by authorId
         public IEnumerable<Book> GetBooksByAuthor(int authorId)
         {
             return _bookRepository.ReadAll().Where(b => b.AuthorId == authorId);
         }
 
+        //listing the books that were loaned the most times
         public IEnumerable<Book> GetMostLoanedBooks()
         {
             // Loan namount
@@ -77,12 +79,13 @@ namespace R9IOPN_HFT_2023241.Logic
             return mostLoanedBooks;
         }
 
-
+        //Listing the books by the given genre
         public IEnumerable<Book> GetBooksByGenre(string genre)
         {
             return _bookRepository.ReadAll().Where(b => b.Genre == genre);
         }
 
+        //Listing the books that a certain person loaned out
         public IEnumerable<Book> GetBooksLoanedByUser(int userId)
         {
             return _loanRepository.ReadAll()
@@ -90,7 +93,7 @@ namespace R9IOPN_HFT_2023241.Logic
                     .Select(l => l.Book);
         }
 
-
+        //listing books between dates
         public IEnumerable<Book> GetBooksLoanedBetweenDates(DateTime startDate, DateTime endDate)
         {
             return _loanRepository.ReadAll()
