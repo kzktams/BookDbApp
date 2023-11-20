@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using R9IOPN_HFT_2023241.Models;
 using R9IOPN_HFT_2023241.Repository;
 
 namespace R9IOPN_HFT_2023241.Logic
 {
-    public class BookLogic
+    public class BookLogic : IBookLogic
     {
         IRepository<Book> _bookRepository;
         IRepository<Loan> _loanRepository;
@@ -19,11 +20,25 @@ namespace R9IOPN_HFT_2023241.Logic
 
         public void Create(Book item)
         {
+            if (item.PublicationYear > DateTime.Now.Year)
+            {
+                throw new ArgumentException("Publication cannot be in the future");
+            }
+            var validGenres = new List<string> { "Mystery", "Science Fiction", "Fantasy", "Adventure", "Horror", "Drama", "Thriller" };
+            if (!validGenres.Contains(item.Genre))
+            {
+                throw new ArgumentException("Genre doesn't exist");
+            }
             this._bookRepository.Create(item);
         }
 
         public void Delete(int id)
         {
+            if (_loanRepository.ReadAll().Any(l => l.BookId == id && l.ReturnDate > DateTime.Now))
+            {
+                throw new InvalidOperationException("The book is currently under loan, cannot be deleted");
+            }
+
             this._bookRepository.Delete(id);
         }
 
@@ -39,6 +54,11 @@ namespace R9IOPN_HFT_2023241.Logic
 
         public void Update(Book item)
         {
+            if (item.PublicationYear > DateTime.Now.Year)
+            {
+                throw new ArgumentException("Publication cannot be in the future");
+            }
+
             this._bookRepository.Update(item);
         }
 
