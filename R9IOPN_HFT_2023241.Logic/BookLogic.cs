@@ -11,6 +11,7 @@ namespace R9IOPN_HFT_2023241.Logic
     {
         IRepository<Book> _bookRepository;
         IRepository<Loan> _loanRepository;
+        IRepository<User> _userRepository;
 
         public BookLogic(IRepository<Book> repo, IRepository<Loan> loan)
         {
@@ -65,16 +66,25 @@ namespace R9IOPN_HFT_2023241.Logic
         //nonCRUD
 
         //Listing the  boooks of a certain author by authorId
-        public IEnumerable<Book> GetBooksByAuthor(int authorId)
+        public IEnumerable<BookDetail> GetBooksByAuthor(int authorId)
         {
-            return _bookRepository.ReadAll().Where(b => b.AuthorId == authorId);
+            return _bookRepository.ReadAll()
+                                 .Where(b => b.AuthorId == authorId)
+                                 .Select(b => new BookDetail
+                                 {
+                                     BookId = b.BookId,
+                                     Title = b.Title,
+                                     PublicationYear = b.PublicationYear,
+                                     Genre = b.Genre
+                                 })
+                                 .ToList();
         }
 
-        //listing the books that were loaned the most times
-        public IEnumerable<Book> GetMostLoanedBooks()
+        // Listing the books that were loaned the most times, along with their titles and loan counts
+        public IEnumerable<BookLoanCount> GetMostLoanedBooks()
         {
-            // Loan namount
-            var loanCounts = _bookRepository.ReadAll()
+            // Most loaned id
+            var loanCounts = _loanRepository.ReadAll()
                                             .GroupBy(loan => loan.BookId)
                                             .Select(group => new
                                             {
@@ -82,43 +92,91 @@ namespace R9IOPN_HFT_2023241.Logic
                                                 LoanCount = group.Count()
                                             })
                                             .OrderByDescending(x => x.LoanCount)
-                                            .Take(10)
+                                            .Take(5)
                                             .ToList();
 
-            // Books that were loaned the most amount of times
-            var mostLoanedBooks = new List<Book>();
-            foreach (var loanCount in loanCounts)
-            {
-                var book = _bookRepository.ReadAll().FirstOrDefault(b => b.BookId == loanCount.BookId);
-                if (book != null)
+            // Book titles
+            var mostLoanedBooks = loanCounts.Select(loanCount =>
+                new BookLoanCount
                 {
-                    mostLoanedBooks.Add(book);
-                }
-            }
+                    BookId = loanCount.BookId,
+                    Title = _bookRepository.ReadAll().FirstOrDefault(b => b.BookId == loanCount.BookId)?.Title,
+                    LoanCount = loanCount.LoanCount
+                }).ToList();
 
             return mostLoanedBooks;
         }
 
         //Listing the books by the given genre
-        public IEnumerable<Book> GetBooksByGenre(string genre)
+        public IEnumerable<BookDetail> GetBooksByGenre(string genre)
         {
-            return _bookRepository.ReadAll().Where(b => b.Genre == genre);
+            return _bookRepository.ReadAll()
+                                 .Where(b => b.Genre == genre)
+                                 .Select(b => new BookDetail
+                                 {
+                                     BookId = b.BookId,
+                                     Title = b.Title,
+                                     PublicationYear = b.PublicationYear,
+                                     Genre = b.Genre
+                                 })
+                                 .ToList();
         }
 
         //Listing the books that a certain person loaned out
-        public IEnumerable<Book> GetBooksLoanedByUser(int userId)
+        public IEnumerable<UserLoanDetail> GetBooksLoanedByUser(int userId)
         {
-            return _loanRepository.ReadAll()
-                    .Where(l => l.UserId == userId)
-                    .Select(l => l.Book);
+            var userLoans = _loanRepository.ReadAll()
+                                           .Where(l => l.UserId == userId)
+                                           .Select(l => new UserLoanDetail
+                                           {
+                                               BookId = l.Book.BookId,
+                                               BookTitle = l.Book.Title,
+                                               UserName = l.User.Name,
+                                               LoanDate = l.LoanDate,
+                                               ReturnDate = l.ReturnDate
+                                           })
+                                           .ToList();
+
+            return userLoans;
         }
 
         //listing books between dates
-        public IEnumerable<Book> GetBooksLoanedBetweenDates(DateTime startDate, DateTime endDate)
+        public IEnumerable<BookDetail> GetBooksLoanedBetweenDates(DateTime startDate, DateTime endDate)
         {
             return _loanRepository.ReadAll()
-                    .Where(l => l.LoanDate >= startDate && l.ReturnDate <= endDate)
-                    .Select(l => l.Book);
+                                 .Where(l => l.LoanDate >= startDate && l.ReturnDate <= endDate)
+                                 .Select(l => new BookDetail
+                                 {
+                                     BookId = l.Book.BookId,
+                                     Title = l.Book.Title,
+                                     PublicationYear = l.Book.PublicationYear,
+                                     Genre = l.Book.Genre
+                                 })
+                                 .ToList();
         }
+    }
+
+    public class BookLoanCount
+    {
+        public int BookId { get; set; }
+        public string Title { get; set; }
+        public int LoanCount { get; set; }
+    }
+
+    public class BookDetail
+    {
+        public int BookId { get; set; }
+        public string Title { get; set; } 
+        public int PublicationYear { get; set; }
+        public string Genre { get; set; } 
+    }
+
+    public class UserLoanDetail
+    {
+        public int BookId { get; set; }
+        public string BookTitle { get; set; }
+        public string UserName { get; set; }
+        public DateTime LoanDate { get; set; }
+        public DateTime ReturnDate { get; set; }
     }
 }
