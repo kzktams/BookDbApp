@@ -29,8 +29,10 @@ namespace R9IOPN_HFT_2023241.Client
             var ctx = new BookDbContext();
             var repo = new BookRepository(ctx);
             var repo2 = new LoanRepository(ctx);
-            var logic = new BookLogic(repo, repo2);
-
+            var repo3 = new UserRepository(ctx);
+            var repo4 = new AuthorRepository(ctx);
+            var logic = new BookLogic(repo, repo2, repo3);
+            var logicA = new AuthorLogic(repo4,repo, repo2);
             Book book = new Book()
             {
                 AuthorId = 1,
@@ -40,11 +42,14 @@ namespace R9IOPN_HFT_2023241.Client
             };
             //logic.Create(book);
 
-            var nc = logic.GetBooksByGenre("Mystery");
-            var nc2 = logic.GetBooksLoanedByUser(1);
-            var nc3 = logic.GetBooksByAuthor(1);
-            var nc4 = logic.GetBooksLoanedBetweenDates(new DateTime(2020,1,1), new DateTime(2023, 1, 1));
+            //var nc = logic.GetBooksByGenre("Mystery");
+            //var nc2 = logic.GetBooksLoanedByUser(1);
+            //var nc3 = logic.GetBooksByAuthor(1);
+            //var nc4 = logic.GetBooksLoanedBetweenDates(new DateTime(2020,1,1), new DateTime(2023, 1, 1));
             //var nc5 = logic.GetMostLoanedBooks();
+
+            var nc6 = logicA.SearchAuthorsByName("John Smith");
+            var nc7 = logicA.GetMostPopularAuthors();
             var item = logic.ReadAll();
 
             

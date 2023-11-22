@@ -13,10 +13,11 @@ namespace R9IOPN_HFT_2023241.Logic
         IRepository<Loan> _loanRepository;
         IRepository<User> _userRepository;
 
-        public BookLogic(IRepository<Book> repo, IRepository<Loan> loan)
+        public BookLogic(IRepository<Book> repo, IRepository<Loan> loan, IRepository<User> userRepository)
         {
             this._bookRepository = repo;
             this._loanRepository = loan;
+            this._userRepository = userRepository;
         }
 
         public void Create(Book item)
@@ -77,7 +78,7 @@ namespace R9IOPN_HFT_2023241.Logic
                                      PublicationYear = b.PublicationYear,
                                      Genre = b.Genre
                                  })
-                                 .ToList();
+                                 ;
         }
 
         // Listing the books that were loaned the most times, along with their titles and loan counts
@@ -102,7 +103,7 @@ namespace R9IOPN_HFT_2023241.Logic
                     BookId = loanCount.BookId,
                     Title = _bookRepository.ReadAll().FirstOrDefault(b => b.BookId == loanCount.BookId)?.Title,
                     LoanCount = loanCount.LoanCount
-                }).ToList();
+                });
 
             return mostLoanedBooks;
         }
@@ -119,7 +120,7 @@ namespace R9IOPN_HFT_2023241.Logic
                                      PublicationYear = b.PublicationYear,
                                      Genre = b.Genre
                                  })
-                                 .ToList();
+                                 ;
         }
 
         //Listing the books that a certain person loaned out
@@ -135,7 +136,7 @@ namespace R9IOPN_HFT_2023241.Logic
                                                LoanDate = l.LoanDate,
                                                ReturnDate = l.ReturnDate
                                            })
-                                           .ToList();
+                                           ;
 
             return userLoans;
         }
@@ -152,7 +153,7 @@ namespace R9IOPN_HFT_2023241.Logic
                                      PublicationYear = l.Book.PublicationYear,
                                      Genre = l.Book.Genre
                                  })
-                                 .ToList();
+                                 ;
         }
     }
 
