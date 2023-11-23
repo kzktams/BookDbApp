@@ -62,22 +62,13 @@ namespace R9IOPN_HFT_2023241.Logic
                                                 .Take(10)
                                                 .ToList();
 
-            var userActivities = new List<UserActivity>();
-            foreach (var userLoanCount in userLoanCounts)
+            var userActivities = userLoanCounts.Select(userLoanCount =>
+            new UserActivity
             {
-                var user = _userRepository.Read(userLoanCount.UserId);
-                if (user != null)
-                {
-                    userActivities.Add(new UserActivity
-                    {
-                        UserId = user.UserId,
-                        Name = user.Name,
-                        Email = user.Email,
-                        LoanCount = userLoanCount.LoanCount
-                    });
-                }
-            }
-
+                UserId = userLoanCount.UserId,
+                Name = _userRepository.ReadAll().FirstOrDefault(u => u.UserId == userLoanCount.UserId)?.Name,
+                LoanCount = userLoanCount.LoanCount
+            });
             return userActivities;
         }
     }
@@ -85,7 +76,6 @@ namespace R9IOPN_HFT_2023241.Logic
     {
         public int UserId { get; set; }
         public string Name { get; set; } 
-        public string Email { get; set; } 
         public int LoanCount { get; set; } 
     }
 }
