@@ -8,7 +8,7 @@ using R9IOPN_HFT_2023241.Repository;
 
 namespace R9IOPN_HFT_2023241.Logic
 {
-    public class UserLogic
+    public class UserLogic : IUserLogic
     {
         IRepository<User> _userRepository;
         IRepository<Loan> _loanRepository;
