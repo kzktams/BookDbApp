@@ -92,7 +92,7 @@ namespace R9IOPN_HFT_2023241.Logic
                                                 BookId = group.Key,
                                                 LoanCount = group.Count()
                                             })
-                                            .OrderByDescending(x => x.LoanCount)
+                                            .OrderBy(x => x.LoanCount)
                                             .Take(5)
                                             .ToList();
 
@@ -105,7 +105,7 @@ namespace R9IOPN_HFT_2023241.Logic
                     LoanCount = loanCount.LoanCount
                 });
 
-            return mostLoanedBooks;
+            return mostLoanedBooks.Take(1);
         }
 
         //Listing the books by the given genre
@@ -139,6 +139,7 @@ namespace R9IOPN_HFT_2023241.Logic
                                            ;
 
             return userLoans;
+            
         }
 
         //listing books between dates
@@ -162,6 +163,26 @@ namespace R9IOPN_HFT_2023241.Logic
         public int BookId { get; set; }
         public string Title { get; set; }
         public int LoanCount { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            BookLoanCount b = obj as BookLoanCount;
+            if (b == null)
+            {
+                return false;
+            }
+            else
+            {
+                return this.BookId == b.BookId 
+                    && this.Title == b.Title
+                    && this.LoanCount == b.LoanCount;
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(this.BookId, this.Title, this.LoanCount);
+        }
     }
 
     public class BookDetail
@@ -169,15 +190,58 @@ namespace R9IOPN_HFT_2023241.Logic
         public int BookId { get; set; }
         public string Title { get; set; } 
         public int PublicationYear { get; set; }
-        public string Genre { get; set; } 
+        public string Genre { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            BookDetail b = obj as BookDetail;
+            if (b == null)
+            {
+                return false;
+            }
+            else
+            {
+                return this.BookId == b.BookId
+                    && this.Title == b.Title
+                    && this.PublicationYear == b.PublicationYear
+                    && this.Genre == b.Genre;
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(this.BookId, this.Title, this.PublicationYear, this.Genre);
+        }
     }
 
     public class UserLoanDetail
     {
         public int BookId { get; set; }
         public string BookTitle { get; set; }
-        public string UserName { get; set; }
+        public string? UserName { get; set; }
         public DateTime LoanDate { get; set; }
         public DateTime ReturnDate { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            UserLoanDetail b = obj as UserLoanDetail;
+            if (b == null)
+            {
+                return false;
+            }
+            else
+            {
+                return this.BookId == b.BookId
+                    && this.BookTitle == b.BookTitle
+                    && this.UserName == b.UserName
+                    && this.LoanDate == b.LoanDate
+                    && this.ReturnDate == b.ReturnDate;
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(this.BookId, this.BookTitle, this.UserName, this.LoanDate, this.ReturnDate);
+        }
     }
 }
