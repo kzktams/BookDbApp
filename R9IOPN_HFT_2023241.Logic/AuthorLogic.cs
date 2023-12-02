@@ -25,7 +25,7 @@ namespace R9IOPN_HFT_2023241.Logic
         {
             if (string.IsNullOrWhiteSpace(item.Name))
             {
-                throw new ArgumentException("Author name cannot be empty, if Author not known please type Anonymus");
+                throw new ArgumentException("Author name cannot be empty, if Author not known please type: Anonymus");
             }
             if (item.BirthDate > DateTime.Now)
             {
