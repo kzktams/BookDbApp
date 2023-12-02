@@ -1,44 +1,55 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using R9IOPN_HFT_2023241.Logic;
+using R9IOPN_HFT_2023241.Models;
 
 namespace R9IOPN_HFT_2023241.Endpoint.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class BookController : ControllerBase
     {
+
+        IBookLogic bookLogic;
+
+        public BookController(IBookLogic bookLogic)
+        {
+            this.bookLogic = bookLogic;
+        }
+
         // GET: api/<BookController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<Book> ReadAll()
         {
-            return new string[] { "value1", "value2" };
+            return this.bookLogic.ReadAll();
         }
 
         // GET api/<BookController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public Book Read(int id)
         {
-            return "value";
+            return this.bookLogic.Read(id);
         }
 
         // POST api/<BookController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Create([FromBody] Book value)
         {
+            this.bookLogic.Create(value);
         }
 
         // PUT api/<BookController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Update([FromBody] Book value)
         {
+            this.bookLogic.Update(value);
         }
 
         // DELETE api/<BookController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            this.bookLogic.Delete(id);
         }
     }
 }
