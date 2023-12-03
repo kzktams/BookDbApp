@@ -20,7 +20,7 @@ namespace R9IOPN_HFT_2023241.Logic
         }
         public void Create(User item)
         {
-            this._userRepository.Create(item);
+            _userRepository.Create(item);
         }
 
         public void Delete(int id)
@@ -30,12 +30,12 @@ namespace R9IOPN_HFT_2023241.Logic
             {
                 throw new InvalidOperationException("User isn't found");
             }
-            this._userRepository.Delete(id);
+            _userRepository.Delete(id);
         }
 
         public User Read(int id)
         {
-            return this._userRepository.Read(id);
+            return _userRepository.Read(id);
         }
 
         public IQueryable<User> ReadAll()
@@ -45,7 +45,7 @@ namespace R9IOPN_HFT_2023241.Logic
 
         public void Update(User item)
         {
-            this._userRepository.Update(item);
+            _userRepository.Update(item);
         }
 
 

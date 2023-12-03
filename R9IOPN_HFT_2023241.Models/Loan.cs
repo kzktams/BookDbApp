@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace R9IOPN_HFT_2023241.Models
@@ -15,6 +16,7 @@ namespace R9IOPN_HFT_2023241.Models
         public int LoanId { get; set; }
 
         public int UserId { get; set; }
+        [JsonIgnore]
         public virtual User User { get; set; }
         public int BookId { get; set; }
         public virtual Book Book { get; set; }

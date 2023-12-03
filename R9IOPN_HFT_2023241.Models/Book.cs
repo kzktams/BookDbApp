@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.Json.Serialization;
 
 namespace R9IOPN_HFT_2023241.Models
 {
@@ -25,7 +26,7 @@ namespace R9IOPN_HFT_2023241.Models
         public int AuthorId { get; set; }
         public virtual Author Author { get; set; }
 
-
+        [JsonIgnore]
         public virtual ICollection<Loan> Loans { get; set; }
 
         public Book()

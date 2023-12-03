@@ -42,6 +42,7 @@ namespace R9IOPN_HFT_2023241.Client
             var bookLogic = new BookLogic(bookRepo, loanRepo, userRepo);
             var authorLogic = new AuthorLogic(authorRepo, bookRepo, loanRepo);
             var userLogic = new UserLogic(userRepo, loanRepo);
+            var loanLogic = new LoanLogic(loanRepo);
 
             var loanSubMenu = new ConsoleMenu(args, level: 1)
                 .Add("List", () => List("Loan"))
