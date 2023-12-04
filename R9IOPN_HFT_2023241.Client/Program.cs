@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using ConsoleTools;
-using R9IOPN_HFT_2023241.Logic;
 using R9IOPN_HFT_2023241.Models;
-using R9IOPN_HFT_2023241.Repository;
+
 
 namespace R9IOPN_HFT_2023241.Client
 {
     internal class Program
     {
+
+        static RestService rest;
         static void Create(string entity)
         {
             Console.WriteLine(entity + " create");
@@ -32,17 +33,18 @@ namespace R9IOPN_HFT_2023241.Client
         }
         static void Main(string[] args)
         {
-            var ctx = new BookDbContext();
+            rest = new RestService("http://localhost:4356/","swagger");
+            //var ctx = new BookDbContext();
 
-            var bookRepo = new BookRepository(ctx);
-            var authorRepo = new AuthorRepository(ctx);
-            var loanRepo = new LoanRepository(ctx);
-            var userRepo = new UserRepository(ctx);
+            //var bookRepo = new BookRepository(ctx);
+            //var authorRepo = new AuthorRepository(ctx);
+            //var loanRepo = new LoanRepository(ctx);
+            //var userRepo = new UserRepository(ctx);
 
-            var bookLogic = new BookLogic(bookRepo, loanRepo, userRepo);
-            var authorLogic = new AuthorLogic(authorRepo, bookRepo, loanRepo);
-            var userLogic = new UserLogic(userRepo, loanRepo);
-            var loanLogic = new LoanLogic(loanRepo);
+            //var bookLogic = new BookLogic(bookRepo, loanRepo, userRepo);
+            //var authorLogic = new AuthorLogic(authorRepo, bookRepo, loanRepo);
+            //var userLogic = new UserLogic(userRepo, loanRepo);
+            //var loanLogic = new LoanLogic(loanRepo);
 
             var loanSubMenu = new ConsoleMenu(args, level: 1)
                 .Add("List", () => List("Loan"))
@@ -81,7 +83,7 @@ namespace R9IOPN_HFT_2023241.Client
 
             menu.Show();
 
-            IRepository<Book> rep = new BookRepository(new BookDbContext());
+            //IRepository<Book> rep = new BookRepository(new BookDbContext());
 
 
             //Book b = new Book()

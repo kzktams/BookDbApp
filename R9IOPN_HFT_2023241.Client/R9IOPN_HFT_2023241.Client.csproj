@@ -7,12 +7,11 @@
 
   <ItemGroup>
     <PackageReference Include="ConsoleMenu-simple" Version="2.6.1" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\R9IOPN_HFT_2023241.Logic\R9IOPN_HFT_2023241.Logic.csproj" />
     <ProjectReference Include="..\R9IOPN_HFT_2023241.Models\R9IOPN_HFT_2023241.Models.csproj" />
-    <ProjectReference Include="..\R9IOPN_HFT_2023241.Repository\R9IOPN_HFT_2023241.Repository.csproj" />
   </ItemGroup>
 
 </Project>
