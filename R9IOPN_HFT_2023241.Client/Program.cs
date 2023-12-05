@@ -59,7 +59,7 @@ namespace R9IOPN_HFT_2023241.Client
                 string name = Console.ReadLine();
 
                 //correct form
-                Console.Write("Enter the author's birth date (yyyy-MM-dd): ");
+                Console.Write("Enter the author's birth date (yyyy.MM.dd): ");
                 string birthDateString = Console.ReadLine();
                 DateTime birthDate;
                 while (!DateTime.TryParse(birthDateString, out birthDate))
@@ -114,14 +114,14 @@ namespace R9IOPN_HFT_2023241.Client
                 Console.Write("Enter the book's ID: ");
                 int bookId = int.Parse(Console.ReadLine());
 
-                Console.Write("Enter the loan date (yyyy-MM-dd): ");
+                Console.Write("Enter the loan date (yyyy.MM.dd): ");
                 DateTime loanDate;
                 while (!DateTime.TryParse(Console.ReadLine(), out loanDate))
                 {
                     Console.Write("Invalid date format. Please enter the date in yyyy-MM-dd format: ");
                 }
 
-                Console.Write("Enter the return date (yyyy-MM-dd): ");
+                Console.Write("Enter the return date (yyyy.MM.dd): ");
                 DateTime returnDate;
                 while (!DateTime.TryParse(Console.ReadLine(), out returnDate))
                 {
@@ -256,11 +256,11 @@ namespace R9IOPN_HFT_2023241.Client
                 Console.Write($"Enter the new name of the author [Old: {old.Name}]: ");
                 old.Name = Console.ReadLine();
 
-                Console.Write($"Enter the new birth date of the author (yyyy-MM-dd) [Old: {old.BirthDate.ToShortDateString()}]: ");
+                Console.Write($"Enter the new birth date of the author (yyyy.MM.dd) [Old: {old.BirthDate.ToShortDateString()}]: ");
                 DateTime birthDate;
                 while (!DateTime.TryParse(Console.ReadLine(), out birthDate))
                 {
-                    Console.Write("Invalid date format. Please enter the date in yyyy-MM-dd format: ");
+                    Console.Write("Invalid date format. Please enter the date in yyyy.MM.dd format: ");
                 }
                 old.BirthDate = birthDate;
 
@@ -314,10 +314,10 @@ namespace R9IOPN_HFT_2023241.Client
                 Console.Write($"Enter the new book ID for the loan [Old: {old.BookId}]: ");
                 old.BookId = int.Parse(Console.ReadLine());
 
-                Console.Write($"Enter the new loan date (yyyy-MM-dd) [Old: {old.LoanDate.ToShortDateString()}]: ");
+                Console.Write($"Enter the new loan date (yyyy.MM.dd) [Old: {old.LoanDate.ToShortDateString()}]: ");
                 old.LoanDate = DateTime.Parse(Console.ReadLine());
 
-                Console.Write($"Enter the new return date (yyyy-MM-dd) [Old: {old.ReturnDate.ToShortDateString()}]: ");
+                Console.Write($"Enter the new return date (yyyy.MM.dd) [Old: {old.ReturnDate.ToShortDateString()}]: ");
                 old.ReturnDate = DateTime.Parse(Console.ReadLine());
 
                 rest.Put(old, "loan");
@@ -393,14 +393,14 @@ namespace R9IOPN_HFT_2023241.Client
                 .Add("Exit", ConsoleMenu.Close);
 
             var noncrudSubMenu = new ConsoleMenu(args, level: 1)
-                .Add("Books by author", () => BooksByAuthor())
-                .Add("Most loaned books", ()=> MostLoanedBooks("Book"))
-                .Add("Books by genre", ()=> BooksByGenre())
-                .Add("Books loaned by user", ()=> BooksLoanedByUser())
-                .Add("Books loaned between dates", ()=> BooksLoanedBetweenDates())
-                .Add("Authors by name", ()=> AuthorsByName())
-                .Add("Author popularity", ()=> AuthorPopularities())
-                .Add("User activity", ()=> Activities())
+                .Add("Books by author", () => BooksByAuthor("BooksByAuthor"))
+                .Add("Most loaned books", ()=> MostLoanedBooks("MostLoanedBooks"))
+                .Add("Books by genre", ()=> BooksByGenre("BooksByGenre"))
+                .Add("Books loaned by user", ()=> BooksLoanedByUser("BooksLoanedByUser"))
+                .Add("Books loaned between dates", ()=> BooksLoanedBetweenDates("BooksLoanedBetweenDates"))
+                .Add("Authors by name", ()=> AuthorsByName("AuthorsByName"))
+                .Add("Author popularity", ()=> AuthorPopularities("AuthorPopularities"))
+                .Add("User activity", ()=> Activities("Activity"))
                 .Add("Exit", ConsoleMenu.Close)
                 ;
 
@@ -413,64 +413,108 @@ namespace R9IOPN_HFT_2023241.Client
 
             menu.Show();
         }
+        //noncruds
+        private static void Activities(string endpoint)
+        {
+            var result = rest.Get<dynamic>($"Stat/{endpoint}");
+
+            foreach (var item in result)
+            {
+                Console.WriteLine(item.ToString());
+            }
+            Console.ReadLine();
+        }
+
+        private static void AuthorsByName(string endpoint)
+        {
+            Console.WriteLine("Enter the searched author: ");
+            string author = Console.ReadLine();
+            var result = rest.Get<dynamic>($"Stat/{endpoint}/{author}");
+
+            foreach (var item in result)
+            {
+                Console.WriteLine(item.ToString());
+            }
+            Console.ReadLine();
+        }
+
+        private static void BooksLoanedBetweenDates(string endpoint)
+        {
+            Console.Write("Enter the start date (yyyy.MM.dd): ");
+            string startDate = Console.ReadLine();
+            Console.Write("Enter the end date (yyyy.MM.dd): ");
+            string endDate = Console.ReadLine();
+            var result = rest.Get<dynamic>($"Stat/{endpoint}/{startDate},{endDate}");
+
+            foreach (var item in result)
+            {
+                Console.WriteLine(item.ToString());
+            }
+            Console.ReadLine();
+        }
+
+        private static void BooksLoanedByUser(string endpoint)
+        {
+            Console.WriteLine("Enter the searched user's ID: ");
+            int userId= int.Parse(Console.ReadLine());
+            var result = rest.Get<dynamic>($"Stat/{endpoint}/{userId}");
+
+            foreach (var item in result)
+            {
+                Console.WriteLine(item.ToString());
+            }
+            Console.ReadLine();
+        }
+
+        private static void BooksByGenre(string endpoint)
+        {
+            Console.WriteLine("Enter the genre from the list (Mystery, Science Fiction, Fantasy, Adventure, Horror, Drama, Thriller): ");
+            string genre = Console.ReadLine();
+            var result = rest.Get<dynamic>($"Stat/{endpoint}/{genre}");
+            foreach (var item in result)
+            {
+                Console.WriteLine(item.ToString());
+            }
+            Console.ReadLine();
+        }
+
+        private static void AuthorPopularities(string endpoint)
+        {
+            
+            var result = rest.Get<dynamic>($"Stat/{endpoint}");
+
+            foreach (var item in result)
+            {
+                Console.WriteLine(item.ToString());
+            }
+            Console.ReadLine();
+        }
+
+        private static void BooksByAuthor(string endpoint)
+        {
+            Console.WriteLine("Enter the searched author's ID: ");
+            int authorId = int.Parse(Console.ReadLine());
+            var result = rest.Get<dynamic>($"Stat/{endpoint}/{authorId}");
+            
+            foreach (var item in result)
+            {
+                Console.WriteLine(item.ToString());
+            }
+            Console.ReadLine();
+        }
 
         private static void MostLoanedBooks(string endpoint)
         {
-            var result = rest.Get<Book>($"Stat/{endpoint}");
-            Console.WriteLine(result);
-        }
-
-        private static void Activities()
-        {
-            throw new NotImplementedException();
-        }
-
-        private static void AuthorPopularities()
-        {
-            throw new NotImplementedException();
-        }
-
-        private static void AuthorsByName()
-        {
-            throw new NotImplementedException();
-        }
-
-        private static void BooksLoanedBetweenDates()
-        {
-            throw new NotImplementedException();
-        }
-
-        private static void BooksLoanedByUser()
-        {
-            throw new NotImplementedException();
-        }
-
-        private static void BooksByGenre()
-        {
-            throw new NotImplementedException();
+            
+            var result = rest.Get<dynamic>($"Stat/{endpoint}");
+            
+            foreach (var item in result)
+            {
+                Console.WriteLine(item.ToString());
+            }
+            Console.ReadLine();
         }
 
         
-
-        private static void BooksByAuthor()
-        {
-            Console.Write("Enter the author's ID: ");
-            int authorId;
-            while (!int.TryParse(Console.ReadLine(), out authorId))
-            {
-                Console.Write("Invalid input. Please enter a valid author's ID: ");
-            }
-
-            // Lekérdezi a könyveket az adott szerző szerint az API-n keresztül
-            var books = rest.Get<Book>($"stat/booksbyauthor/{authorId}");
-
-            if (books == null || !books.Any())
-            {
-                Console.WriteLine("No books found for this author.");
-                return;
-            }
-
-            
-        }
     }
 }

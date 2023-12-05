@@ -84,19 +84,18 @@ namespace R9IOPN_HFT_2023241.Logic
         // Listing the books that were loaned the most times, along with their titles and loan counts
         public IEnumerable<BookLoanCount> GetMostLoanedBooks()
         {
-            // Most loaned id
             var loanCounts = _loanRepository.ReadAll()
-                                            .GroupBy(loan => loan.BookId)
-                                            .Select(group => new
-                                            {
-                                                BookId = group.Key,
-                                                LoanCount = group.Count()
-                                            })
-                                            .OrderBy(x => x.LoanCount)
-                                            .Take(5)
-                                            .ToList();
+                                    .GroupBy(loan => loan.BookId)
+                                    .Select(group => new
+                                    {
+                                        BookId = group.Key,
+                                        LoanCount = group.Count()
+                                    })
+                                    .OrderByDescending(x => x.LoanCount) 
+                                    .Take(5) 
+                                    .ToList();
 
-            // Book titles
+            
             var mostLoanedBooks = loanCounts.Select(loanCount =>
                 new BookLoanCount
                 {
@@ -105,7 +104,7 @@ namespace R9IOPN_HFT_2023241.Logic
                     LoanCount = loanCount.LoanCount
                 });
 
-            return mostLoanedBooks.Take(1);
+            return mostLoanedBooks;
         }
 
         //Listing the books by the given genre
@@ -182,6 +181,11 @@ namespace R9IOPN_HFT_2023241.Logic
             {
                 return HashCode.Combine(this.BookId, this.Title, this.LoanCount);
             }
+
+            public override string ToString()
+            {
+                return $"BookId: {BookId}; Title: {Title}; LoanCount: {LoanCount}";
+            }
         }
 
         public class BookDetail
@@ -211,6 +215,7 @@ namespace R9IOPN_HFT_2023241.Logic
             {
                 return HashCode.Combine(this.BookId, this.Title, this.PublicationYear, this.Genre);
             }
+            
         }
 
         public class UserLoanDetail

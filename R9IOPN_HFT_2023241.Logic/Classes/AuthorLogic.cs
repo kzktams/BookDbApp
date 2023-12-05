@@ -149,6 +149,11 @@ namespace R9IOPN_HFT_2023241.Logic
             {
                 return HashCode.Combine(AuthorId, AuthorName, LoanCount);
             }
+
+            public override string ToString()
+            {
+                return ($"AuthorId: {AuthorId}; AuthorName: {AuthorName}; LoanCount: {LoanCount}");
+            }
         }
     }
 
