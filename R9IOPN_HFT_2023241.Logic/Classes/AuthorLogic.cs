@@ -69,17 +69,19 @@ namespace R9IOPN_HFT_2023241.Logic
         //nonCRUD
         public IEnumerable<AuthorDetail> SearchAuthorsByName(string name)
         {
-            return _authorRepository.ReadAll()
-                                   .Where(a => a.Name.Contains(name))
-                                   .Select(a => new AuthorDetail
-                                   {
-                                       AuthorId = a.AuthorId,
-                                       Name = a.Name,
-                                       BirthDate = a.BirthDate,
-                                       Country = a.Country,
-                                       BookCount = _bookRepository.ReadAll().Count(b => b.AuthorId == a.AuthorId)
-                                   });
+            var authors = _authorRepository.ReadAll()
+                                           .Where(a => a.Name.Contains(name)).ToList();
 
+            var authorDetails = authors.Select(a => new AuthorDetail
+            {
+                AuthorId = a.AuthorId,
+                Name = a.Name,
+                BirthDate = a.BirthDate,
+                Country = a.Country,
+                BookCount = _bookRepository.ReadAll().Count(b => b.AuthorId == a.AuthorId)
+            });
+
+            return authorDetails;
         }
 
         public IEnumerable<AuthorPopularity> GetMostPopularAuthors()
