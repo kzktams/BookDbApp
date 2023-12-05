@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using ConsoleTools;
 using R9IOPN_HFT_2023241.Models;
 
@@ -361,17 +362,6 @@ namespace R9IOPN_HFT_2023241.Client
         static void Main(string[] args)
         {
             rest = new RestService("http://localhost:4356/","swagger");
-            //var ctx = new BookDbContext();
-
-            //var bookRepo = new BookRepository(ctx);
-            //var authorRepo = new AuthorRepository(ctx);
-            //var loanRepo = new LoanRepository(ctx);
-            //var userRepo = new UserRepository(ctx);
-
-            //var bookLogic = new BookLogic(bookRepo, loanRepo, userRepo);
-            //var authorLogic = new AuthorLogic(authorRepo, bookRepo, loanRepo);
-            //var userLogic = new UserLogic(userRepo, loanRepo);
-            //var loanLogic = new LoanLogic(loanRepo);
 
             var loanSubMenu = new ConsoleMenu(args, level: 1)
                 .Add("List", () => List("Loan"))
@@ -402,59 +392,85 @@ namespace R9IOPN_HFT_2023241.Client
                 .Add("Update", () => Update("Book"))
                 .Add("Exit", ConsoleMenu.Close);
 
+            var noncrudSubMenu = new ConsoleMenu(args, level: 1)
+                .Add("Books by author", () => BooksByAuthor())
+                .Add("Most loaned books", ()=> MostLoanedBooks("Book"))
+                .Add("Books by genre", ()=> BooksByGenre())
+                .Add("Books loaned by user", ()=> BooksLoanedByUser())
+                .Add("Books loaned between dates", ()=> BooksLoanedBetweenDates())
+                .Add("Authors by name", ()=> AuthorsByName())
+                .Add("Author popularity", ()=> AuthorPopularities())
+                .Add("User activity", ()=> Activities())
+                .Add("Exit", ConsoleMenu.Close)
+                ;
+
             var menu = new ConsoleMenu(args, level: 0)
                 .Add("Books", () => bookSubMenu.Show())
                 .Add("Authors", () => authorSubMenu.Show())
                 .Add("Users", () => userSubMenu.Show())
-                .Add("Loans", () => loanSubMenu.Show());
+                .Add("Loans", () => loanSubMenu.Show())
+                .Add("Non-Cruds", () => noncrudSubMenu.Show());
 
             menu.Show();
+        }
 
-            //IRepository<Book> rep = new BookRepository(new BookDbContext());
+        private static void MostLoanedBooks(string endpoint)
+        {
+            var result = rest.Get<Book>($"Stat/{endpoint}");
+            Console.WriteLine(result);
+        }
 
+        private static void Activities()
+        {
+            throw new NotImplementedException();
+        }
 
-            //Book b = new Book()
-            //{
-            //    Title = "Prisoners"
-            //};
+        private static void AuthorPopularities()
+        {
+            throw new NotImplementedException();
+        }
 
-            //rep.Create(b);
+        private static void AuthorsByName()
+        {
+            throw new NotImplementedException();
+        }
 
-            //var another = rep.Read(1);
-            //another.Title = "Truman";
-            //rep.Update(another);
+        private static void BooksLoanedBetweenDates()
+        {
+            throw new NotImplementedException();
+        }
 
-            //var items = rep.ReadAll().ToArray();
+        private static void BooksLoanedByUser()
+        {
+            throw new NotImplementedException();
+        }
 
-        //    var ctx = new BookDbContext();
-        //var repo = new BookRepository(ctx);
-        //var repo2 = new LoanRepository(ctx);
-        //var repo3 = new UserRepository(ctx);
-        //var repo4 = new AuthorRepository(ctx);
-        //var logic = new BookLogic(repo, repo2, repo3);
-        //var logicA = new AuthorLogic(repo4, repo, repo2);
-        //Book book = new Book()
-        //{
-        //    AuthorId = 1,
-        //    Title = "Tehat",
-        //    Genre = "Horror",
-        //    PublicationYear = 2022
-        //};
-        //logic.Create(book);
+        private static void BooksByGenre()
+        {
+            throw new NotImplementedException();
+        }
 
-        //var nc = logic.GetBooksByGenre("Mystery");
-        //var nc2 = logic.GetBooksLoanedByUser(1);
+        
+
+        private static void BooksByAuthor()
+        {
+            Console.Write("Enter the author's ID: ");
+            int authorId;
+            while (!int.TryParse(Console.ReadLine(), out authorId))
+            {
+                Console.Write("Invalid input. Please enter a valid author's ID: ");
+            }
+
+            // Lekérdezi a könyveket az adott szerző szerint az API-n keresztül
+            var books = rest.Get<Book>($"stat/booksbyauthor/{authorId}");
+
+            if (books == null || !books.Any())
+            {
+                Console.WriteLine("No books found for this author.");
+                return;
+            }
+
             
-            //var nc3 = logic.GetBooksByAuthor(1);
-            //var nc4 = logic.GetBooksLoanedBetweenDates(new DateTime(2020,1,1), new DateTime(2023, 1, 1));
-            //var nc5 = logic.GetMostLoanedBooks();
-
-            //var nc6 = logicA.SearchAuthorsByName("John Smith");
-            //var nc7 = logicA.GetMostPopularAuthors();
-            //var item = logic.ReadAll();
-
-
-
         }
     }
 }
