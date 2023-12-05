@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -21,13 +22,18 @@ namespace R9IOPN_HFT_2023241.Repository
 
         public override void Update(Author item)
         {
-            var existingAuthor = Read(item.AuthorId);
-            if (existingAuthor == null)
+            var old = Read(item.AuthorId);
+            if (old == null)
             {
-                throw new InvalidOperationException("The author cannot be found in our currand database");
+                throw new NullReferenceException();
             }
-
-            context.Entry(existingAuthor).CurrentValues.SetValues(item);
+            foreach (var prop in old.GetType().GetProperties())
+            {
+                if (prop.GetAccessors().FirstOrDefault(t => t.IsVirtual) == null)
+                {
+                    prop.SetValue(old, prop.GetValue(item));
+                }
+            }
             context.SaveChanges();
         }
     }

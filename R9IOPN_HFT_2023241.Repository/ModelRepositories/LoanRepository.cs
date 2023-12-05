@@ -20,13 +20,18 @@ namespace R9IOPN_HFT_2023241.Repository
 
         public override void Update(Loan item)
         {
-            var existingLoan = Read(item.LoanId);
-            if (existingLoan == null)
+            var old = Read(item.LoanId);
+            if (old == null)
             {
-                throw new InvalidOperationException("The loan cannot be found in our currand database");
+                throw new NullReferenceException();
             }
-
-            context.Entry(existingLoan).CurrentValues.SetValues(item);
+            foreach (var prop in old.GetType().GetProperties())
+            {
+                if (prop.GetAccessors().FirstOrDefault(t => t.IsVirtual) == null)
+                {
+                    prop.SetValue(old, prop.GetValue(item));
+                }
+            }
             context.SaveChanges();
         }
     }

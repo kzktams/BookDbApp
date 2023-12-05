@@ -36,7 +36,7 @@ namespace R9IOPN_HFT_2023241.Endpoint.Controllers
             this.authorLogic.Create(value);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut]
         public void Update( [FromBody] Author value)
         {
             this.authorLogic.Update(value);

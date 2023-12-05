@@ -20,13 +20,18 @@ namespace R9IOPN_HFT_2023241.Repository
 
         public override void Update(User item)
         {
-            var existingUser = Read(item.UserId);
-            if (existingUser == null)
+            var old = Read(item.UserId);
+            if (old == null)
             {
-                throw new InvalidOperationException("The user cannot be found in our currand database");
+                throw new NullReferenceException();
             }
-
-            context.Entry(existingUser).CurrentValues.SetValues(item);
+            foreach (var prop in old.GetType().GetProperties())
+            {
+                if (prop.GetAccessors().FirstOrDefault(t => t.IsVirtual) == null)
+                {
+                    prop.SetValue(old, prop.GetValue(item));
+                }
+            }
             context.SaveChanges();
         }
     }

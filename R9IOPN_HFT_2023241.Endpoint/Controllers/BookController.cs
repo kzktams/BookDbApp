@@ -39,7 +39,7 @@ namespace R9IOPN_HFT_2023241.Endpoint.Controllers
         }
 
         // PUT api/<BookController>/5
-        [HttpPut("{id}")]
+        [HttpPut]
         public void Update([FromBody] Book value)
         {
             this.bookLogic.Update(value);

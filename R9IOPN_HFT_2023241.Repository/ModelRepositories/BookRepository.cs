@@ -20,13 +20,18 @@ namespace R9IOPN_HFT_2023241.Repository
 
         public override void Update(Book item)
         {
-            var existingBook = Read(item.BookId);
-            if (existingBook == null)
+            var old = Read(item.BookId);
+            if (old == null)
             {
-                throw new InvalidOperationException("The book cannot be found in our currand database");
+                throw new NullReferenceException();
             }
-
-            context.Entry(existingBook).CurrentValues.SetValues(item);
+            foreach (var prop in old.GetType().GetProperties())
+            {
+                if (prop.GetAccessors().FirstOrDefault(t => t.IsVirtual) == null)
+                {
+                    prop.SetValue(old, prop.GetValue(item));
+                }
+            }
             context.SaveChanges();
         }
 

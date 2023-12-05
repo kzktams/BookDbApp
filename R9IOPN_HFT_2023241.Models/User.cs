@@ -16,6 +16,7 @@ namespace R9IOPN_HFT_2023241.Models
         public int UserId { get; set; }
 
         [StringLength(100)]
+        [Required]
         public string Name { get; set; }
 
         [StringLength(100)]

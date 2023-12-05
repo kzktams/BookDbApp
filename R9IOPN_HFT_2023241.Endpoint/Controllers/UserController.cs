@@ -35,7 +35,7 @@ namespace R9IOPN_HFT_2023241.Endpoint.Controllers
         }
 
         
-        [HttpPut("{id}")]
+        [HttpPut]
         public void Update([FromBody] User value)
         {
             this.userLogic.Update(value);
