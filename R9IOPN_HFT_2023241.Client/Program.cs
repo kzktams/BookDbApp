@@ -139,6 +139,7 @@ namespace R9IOPN_HFT_2023241.Client
                 rest.Post(newLoan, "loan");
                 Console.WriteLine("Loan created successfully.");
             }
+
             Console.ReadLine();
         }
         static void List(string entity)
@@ -192,6 +193,7 @@ namespace R9IOPN_HFT_2023241.Client
                     Console.WriteLine($"Loan ID: {loan.LoanId}, User ID: {loan.UserId}, Book ID: {loan.BookId}, Loan Date: {loan.LoanDate.ToShortDateString()}, Return Date: {loan.ReturnDate.ToShortDateString()}");
                 }
             }
+
             Console.ReadLine();
         }
         static void Update(string entity)
@@ -321,10 +323,39 @@ namespace R9IOPN_HFT_2023241.Client
                 Console.WriteLine("Loan updated successfully.");
             }
 
+            Console.ReadLine();
         }
         static void Delete(string entity)
         {
-            Console.WriteLine(entity + " delete");
+            if (entity == "Book")
+            {
+                Console.WriteLine("Enter the ID of the book you would like to remove: ");
+                int id = int.Parse(Console.ReadLine());
+                rest.Delete(id, "book");
+                Console.WriteLine("Book removed successfully");
+            }
+            if (entity == "Author")
+            {
+                Console.WriteLine("Enter the ID of the author you would like to remove: ");
+                int id = int.Parse(Console.ReadLine());
+                rest.Delete(id, "author");
+                Console.WriteLine("Author removed successfully");
+            }
+            if (entity == "User")
+            {
+                Console.WriteLine("Enter the ID of the user you would like to remove: ");
+                int id = int.Parse(Console.ReadLine());
+                rest.Delete(id, "user");
+                Console.WriteLine("User removed successfully");
+            }
+            if (entity == "Loan")
+            {
+                Console.WriteLine("Enter the ID of the loan you would like to remove: ");
+                int id = int.Parse(Console.ReadLine());
+                rest.Delete(id, "loan");
+                Console.WriteLine("Loan removed successfully");
+            }
+
             Console.ReadLine();
         }
         static void Main(string[] args)

@@ -71,24 +71,26 @@ namespace R9IOPN_HFT_2023241.Logic
             });
             return userActivities;
         }
-    }
-    public class UserActivity
-    {
-        public int UserId { get; set; }
-        public string Name { get; set; } 
-        public int LoanCount { get; set; }
 
-        public override bool Equals(object obj)
+        public class UserActivity
         {
-            return obj is UserActivity activity &&
-                   UserId == activity.UserId &&
-                   Name == activity.Name &&
-                   LoanCount == activity.LoanCount;
-        }
+            public int UserId { get; set; }
+            public string Name { get; set; }
+            public int LoanCount { get; set; }
 
-        public override int GetHashCode()
-        {
-            return HashCode.Combine(UserId, Name, LoanCount);
+            public override bool Equals(object obj)
+            {
+                return obj is UserActivity activity &&
+                       UserId == activity.UserId &&
+                       Name == activity.Name &&
+                       LoanCount == activity.LoanCount;
+            }
+
+            public override int GetHashCode()
+            {
+                return HashCode.Combine(UserId, Name, LoanCount);
+            }
         }
     }
+    
 }

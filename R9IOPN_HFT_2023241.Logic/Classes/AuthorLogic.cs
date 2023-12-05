@@ -106,48 +106,49 @@ namespace R9IOPN_HFT_2023241.Logic
             return popularAuthors;
         }
 
+        public class AuthorDetail
+        {
+            public int AuthorId { get; set; }
+            public string Name { get; set; }
+            public DateTime BirthDate { get; set; }
+            public string Country { get; set; }
+            public int BookCount { get; set; }
+
+            public override bool Equals(object obj)
+            {
+                return obj is AuthorDetail detail &&
+                       AuthorId == detail.AuthorId &&
+                       Name == detail.Name &&
+                       BirthDate == detail.BirthDate &&
+                       Country == detail.Country &&
+                       BookCount == detail.BookCount;
+            }
+
+            public override int GetHashCode()
+            {
+                return HashCode.Combine(AuthorId, Name, BirthDate, Country, BookCount);
+            }
+        }
+        public class AuthorPopularity
+        {
+            public int AuthorId { get; set; }
+            public string AuthorName { get; set; }
+            public int LoanCount { get; set; }
+
+            public override bool Equals(object obj)
+            {
+                return obj is AuthorPopularity popularity &&
+                       AuthorId == popularity.AuthorId &&
+                       AuthorName == popularity.AuthorName &&
+                       LoanCount == popularity.LoanCount;
+            }
+
+            public override int GetHashCode()
+            {
+                return HashCode.Combine(AuthorId, AuthorName, LoanCount);
+            }
+        }
     }
 
-    public class AuthorDetail
-    {
-        public int AuthorId { get; set; }
-        public string Name { get; set; }
-        public DateTime BirthDate { get; set; }
-        public string Country { get; set; }
-        public int BookCount { get; set; }
-
-        public override bool Equals(object obj)
-        {
-            return obj is AuthorDetail detail &&
-                   AuthorId == detail.AuthorId &&
-                   Name == detail.Name &&
-                   BirthDate == detail.BirthDate &&
-                   Country == detail.Country &&
-                   BookCount == detail.BookCount;
-        }
-
-        public override int GetHashCode()
-        {
-            return HashCode.Combine(AuthorId, Name, BirthDate, Country, BookCount);
-        }
-    }
-    public class AuthorPopularity
-    {
-        public int AuthorId { get; set; }
-        public string AuthorName { get; set; }
-        public int LoanCount { get; set; }
-
-        public override bool Equals(object obj)
-        {
-            return obj is AuthorPopularity popularity &&
-                   AuthorId == popularity.AuthorId &&
-                   AuthorName == popularity.AuthorName &&
-                   LoanCount == popularity.LoanCount;
-        }
-
-        public override int GetHashCode()
-        {
-            return HashCode.Combine(AuthorId, AuthorName, LoanCount);
-        }
-    }
+    
 }

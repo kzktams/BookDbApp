@@ -8,10 +8,10 @@ namespace R9IOPN_HFT_2023241.Logic
     {
         void Create(Author item);
         void Delete(int id);
-        IEnumerable<AuthorPopularity> GetMostPopularAuthors();
+        IEnumerable<AuthorLogic.AuthorPopularity> GetMostPopularAuthors();
         Author Read(int id);
         IQueryable<Author> ReadAll();
-        IEnumerable<AuthorDetail> SearchAuthorsByName(string name);
+        IEnumerable<AuthorLogic.AuthorDetail> SearchAuthorsByName(string name);
         void Update(Author item);
     }
 }

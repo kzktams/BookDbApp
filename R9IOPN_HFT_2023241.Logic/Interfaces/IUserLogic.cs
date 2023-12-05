@@ -8,7 +8,7 @@ namespace R9IOPN_HFT_2023241.Logic
     {
         void Create(User item);
         void Delete(int id);
-        IEnumerable<UserActivity> GetMostActiveUsers();
+        IEnumerable<UserLogic.UserActivity> GetMostActiveUsers();
         User Read(int id);
         IQueryable<User> ReadAll();
         void Update(User item);

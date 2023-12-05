@@ -9,11 +9,11 @@ namespace R9IOPN_HFT_2023241.Logic
     {
         void Create(Book item);
         void Delete(int id);
-        IEnumerable<BookDetail> GetBooksByAuthor(int authorId);
-        IEnumerable<BookDetail> GetBooksByGenre(string genre);
-        IEnumerable<BookDetail> GetBooksLoanedBetweenDates(DateTime startDate, DateTime endDate);
-        IEnumerable<UserLoanDetail> GetBooksLoanedByUser(int userId);
-        IEnumerable<BookLoanCount> GetMostLoanedBooks();
+        IEnumerable<BookLogic.BookDetail> GetBooksByAuthor(int authorId);
+        IEnumerable<BookLogic.BookDetail> GetBooksByGenre(string genre);
+        IEnumerable<BookLogic.BookDetail> GetBooksLoanedBetweenDates(DateTime startDate, DateTime endDate);
+        IEnumerable<BookLogic.UserLoanDetail> GetBooksLoanedByUser(int userId);
+        IEnumerable<BookLogic.BookLoanCount> GetMostLoanedBooks();
         Book Read(int id);
         IQueryable<Book> ReadAll();
         void Update(Book item);
