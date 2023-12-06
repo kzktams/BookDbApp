@@ -77,7 +77,7 @@ namespace R9IOPN_HFT_2023241.Test
         public void GetBooksByAuthorTest()
         {
             // Arrange
-            int testAuthorId = 1; // Választott szerző azonosítója
+            int testAuthorId = 1; 
             var expectedBooks = new List<BookDetail>()
         {
             new BookDetail { BookId = 1, Title = "TestBook1", PublicationYear = 2001, Genre = "Mystery" },
@@ -201,7 +201,6 @@ namespace R9IOPN_HFT_2023241.Test
             var expectedAuthors = new List<AuthorDetail>
         {
             new AuthorDetail { AuthorId = 1, Name = "TestAuthor1", BirthDate = new DateTime(1965, 7, 21), Country = "USA", BookCount = 2 }
-            // További várható szerzők, ha vannak
         };
 
             // Act
