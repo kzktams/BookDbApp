@@ -209,7 +209,7 @@ namespace R9IOPN_HFT_2023241.Test
 
             // Assert
             Assert.AreEqual(expectedAuthors, actualAuthors);
-            // Additional assertions for author details can be added here
+            
         }
 
         [Test]
