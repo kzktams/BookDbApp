@@ -104,7 +104,7 @@ namespace R9IOPN_HFT_2023241.Logic
                     LoanCount = loanCount.LoanCount
                 });
 
-            return mostLoanedBooks;
+            return mostLoanedBooks.Take(1);
         }
 
         //Listing the books by the given genre

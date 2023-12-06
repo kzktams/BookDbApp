@@ -55,6 +55,7 @@ namespace R9IOPN_HFT_2023241.Test
             {
                 new Loan { LoanId = 1, BookId = 1, LoanDate = new DateTime(2022, 1, 10), ReturnDate = new DateTime(2022, 1, 20), Book = new Book { BookId = 1, Title = "TestBook1", PublicationYear = 2001, Genre = "Mystery" } },
                 new Loan { LoanId = 2, BookId = 2, LoanDate = new DateTime(2022, 1, 15), ReturnDate = new DateTime(2022, 1, 25), Book = new Book { BookId = 2, Title = "TestBook2", PublicationYear = 1999, Genre = "Science Fiction" } },
+                new Loan { LoanId = 3, BookId = 1, LoanDate = new DateTime(2022,1,1), ReturnDate = new DateTime(2023,1,1)}
                 // További Loan objektumok...
             }.AsQueryable());
 
@@ -101,7 +102,7 @@ namespace R9IOPN_HFT_2023241.Test
                 {
                     BookId = 1,
                     Title = "TestBook1",
-                    LoanCount = 1
+                    LoanCount = 2
 
                 },
                 
