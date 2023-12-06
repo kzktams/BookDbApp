@@ -78,10 +78,10 @@ namespace R9IOPN_HFT_2023241.Test
         {
             // Arrange
             int testAuthorId = 1; // Választott szerző azonosítója
-            var expectedBooks = new List<BookLogic.BookDetail>()
+            var expectedBooks = new List<BookDetail>()
         {
-            new BookLogic.BookDetail { BookId = 1, Title = "TestBook1", PublicationYear = 2001, Genre = "Mystery" },
-            new BookLogic.BookDetail { BookId = 2, Title = "TestBook2", PublicationYear = 1999, Genre = "Science Fiction" }
+            new BookDetail { BookId = 1, Title = "TestBook1", PublicationYear = 2001, Genre = "Mystery" },
+            new BookDetail { BookId = 2, Title = "TestBook2", PublicationYear = 1999, Genre = "Science Fiction" }
         };
 
             // Act
@@ -96,9 +96,9 @@ namespace R9IOPN_HFT_2023241.Test
         public void GetMostLoanedBooksTest()
         {
 
-            var expectedBooks = new List<BookLogic.BookLoanCount>
+            var expectedBooks = new List<BookLoanCount>
             {
-                new BookLogic.BookLoanCount()
+                new BookLoanCount()
                 {
                     BookId = 1,
                     Title = "TestBook1",
@@ -121,9 +121,9 @@ namespace R9IOPN_HFT_2023241.Test
         {
             // Arrange
             string testGenre = "Mystery";
-            var expectedBooks = new List<BookLogic.BookDetail>
+            var expectedBooks = new List<BookDetail>
         {
-            new BookLogic.BookDetail { BookId = 1, Title = "TestBook1", PublicationYear = 2001, Genre = "Mystery" },
+            new BookDetail { BookId = 1, Title = "TestBook1", PublicationYear = 2001, Genre = "Mystery" },
             
         };
 
@@ -159,10 +159,10 @@ namespace R9IOPN_HFT_2023241.Test
         };
             mockLoanRepo.Setup(l => l.ReadAll()).Returns(mockLoans.AsQueryable());
 
-            var expectedUserLoans = new List<BookLogic.UserLoanDetail>
+            var expectedUserLoans = new List<UserLoanDetail>
         {
-            new BookLogic.UserLoanDetail { BookId = 1, BookTitle = "Book 1", UserName = "User 1", LoanDate = new DateTime(2022, 1, 10), ReturnDate = new DateTime(2022, 1, 20) },
-            new BookLogic.UserLoanDetail { BookId = 2, BookTitle = "Book 2", UserName = "User 1", LoanDate = new DateTime(2022, 1, 15), ReturnDate = new DateTime(2022, 1, 25) }
+            new UserLoanDetail { BookId = 1, BookTitle = "Book 1", UserName = "User 1", LoanDate = new DateTime(2022, 1, 10), ReturnDate = new DateTime(2022, 1, 20) },
+            new UserLoanDetail { BookId = 2, BookTitle = "Book 2", UserName = "User 1", LoanDate = new DateTime(2022, 1, 15), ReturnDate = new DateTime(2022, 1, 25) }
         };
 
             // Act
@@ -178,10 +178,10 @@ namespace R9IOPN_HFT_2023241.Test
             // Arrange
             var startDate = new DateTime(2022, 1, 10);
             var endDate = new DateTime(2022, 1, 25);
-            var expectedBooks = new List<BookLogic.BookDetail>
+            var expectedBooks = new List<BookDetail>
         {
-            new BookLogic.BookDetail { BookId = 1, Title = "TestBook1", PublicationYear = 2001, Genre = "Mystery" },
-            new BookLogic.BookDetail { BookId = 2, Title = "TestBook2", PublicationYear = 1999, Genre = "Science Fiction" }
+            new BookDetail { BookId = 1, Title = "TestBook1", PublicationYear = 2001, Genre = "Mystery" },
+            new BookDetail { BookId = 2, Title = "TestBook2", PublicationYear = 1999, Genre = "Science Fiction" }
             // Add more expected books if needed
         };
 
@@ -198,9 +198,9 @@ namespace R9IOPN_HFT_2023241.Test
         {
             // Arrange
             string searchName = "TestAuthor1";
-            var expectedAuthors = new List<AuthorLogic.AuthorDetail>
+            var expectedAuthors = new List<AuthorDetail>
         {
-            new AuthorLogic.AuthorDetail { AuthorId = 1, Name = "TestAuthor1", BirthDate = new DateTime(1965, 7, 21), Country = "USA", BookCount = 2 }
+            new AuthorDetail { AuthorId = 1, Name = "TestAuthor1", BirthDate = new DateTime(1965, 7, 21), Country = "USA", BookCount = 2 }
             // További várható szerzők, ha vannak
         };
 
@@ -232,10 +232,10 @@ namespace R9IOPN_HFT_2023241.Test
             mockAuthorRepo.Setup(a => a.ReadAll()).Returns(mockAuthors.AsQueryable());
             mockAuthorRepo.Setup(a => a.Read(It.IsAny<int>())).Returns<int>(id => mockAuthors.FirstOrDefault(a => a.AuthorId == id));
 
-            var expectedAuthors = new List<AuthorLogic.AuthorPopularity>
+            var expectedAuthors = new List<AuthorPopularity>
         {
-            new AuthorLogic.AuthorPopularity { AuthorId = 1, AuthorName = "Author 1", LoanCount = 2 },
-            new AuthorLogic.AuthorPopularity { AuthorId = 2, AuthorName = "Author 2", LoanCount = 1 }
+            new AuthorPopularity { AuthorId = 1, AuthorName = "Author 1", LoanCount = 2 },
+            new AuthorPopularity { AuthorId = 2, AuthorName = "Author 2", LoanCount = 1 }
         };
 
             // Act
@@ -265,10 +265,10 @@ namespace R9IOPN_HFT_2023241.Test
         };
             mockLoanRepo.Setup(l => l.ReadAll()).Returns(mockLoans.AsQueryable());
 
-            var expectedUserActivities = new List<UserLogic.UserActivity>
+            var expectedUserActivities = new List<UserActivity>
         {
-            new UserLogic.UserActivity { UserId = 1, Name = "User 1", LoanCount = 2 },
-            new UserLogic.UserActivity { UserId = 2, Name = "User 2", LoanCount = 1 }
+            new UserActivity { UserId = 1, Name = "User 1", LoanCount = 2 },
+            new UserActivity { UserId = 2, Name = "User 2", LoanCount = 1 }
         };
 
             // Act

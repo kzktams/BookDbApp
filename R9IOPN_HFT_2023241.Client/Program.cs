@@ -416,11 +416,11 @@ namespace R9IOPN_HFT_2023241.Client
         //noncruds
         private static void Activities(string endpoint)
         {
-            var result = rest.Get<dynamic>($"Stat/{endpoint}");
+            var result = rest.Get<UserActivity>($"Stat/{endpoint}");
 
             foreach (var item in result)
             {
-                Console.WriteLine(item.ToString());
+                Console.WriteLine($"UserId: {item.UserId} | Name: {item.Name} | Loan count: {item.LoanCount}");
             }
             Console.ReadLine();
         }
@@ -429,11 +429,11 @@ namespace R9IOPN_HFT_2023241.Client
         {
             Console.WriteLine("Enter the searched author: ");
             string author = Console.ReadLine();
-            var result = rest.Get<dynamic>($"Stat/{endpoint}/{author}");
+            var result = rest.Get<AuthorDetail>($"Stat/{endpoint}/{author}");
 
             foreach (var item in result)
             {
-                Console.WriteLine(item.ToString());
+                Console.WriteLine($"AuthorId: {item.AuthorId} | Name: {item.Name} | Birth date: {item.BirthDate.ToShortTimeString()} | Country: {item.Country} | Book count: {item.BookCount}");
             }
             Console.ReadLine();
         }
@@ -444,11 +444,11 @@ namespace R9IOPN_HFT_2023241.Client
             string startDate = Console.ReadLine();
             Console.Write("Enter the end date (yyyy.MM.dd): ");
             string endDate = Console.ReadLine();
-            var result = rest.Get<dynamic>($"Stat/{endpoint}/{startDate},{endDate}");
+            var result = rest.Get<BookDetail>($"Stat/{endpoint}/{startDate},{endDate}");
 
             foreach (var item in result)
             {
-                Console.WriteLine(item.ToString());
+                Console.WriteLine($"BookId: {item.BookId} | Title: {item.Title} | Puplication year: {item.PublicationYear} | Genre: {item.Genre}");
             }
             Console.ReadLine();
         }
@@ -457,11 +457,11 @@ namespace R9IOPN_HFT_2023241.Client
         {
             Console.WriteLine("Enter the searched user's ID: ");
             int userId= int.Parse(Console.ReadLine());
-            var result = rest.Get<dynamic>($"Stat/{endpoint}/{userId}");
+            var result = rest.Get<UserLoanDetail>($"Stat/{endpoint}/{userId}");
 
             foreach (var item in result)
             {
-                Console.WriteLine(item.ToString());
+                Console.WriteLine($"BookId: {item.BookId} | Title: {item.BookTitle} | Username: {item.UserName} | Loan date: {item.LoanDate.ToShortDateString()} | Return date: {item.ReturnDate.ToShortDateString()}");
             }
             Console.ReadLine();
         }
@@ -470,10 +470,10 @@ namespace R9IOPN_HFT_2023241.Client
         {
             Console.WriteLine("Enter the genre from the list (Mystery, Science Fiction, Fantasy, Adventure, Horror, Drama, Thriller): ");
             string genre = Console.ReadLine();
-            var result = rest.Get<dynamic>($"Stat/{endpoint}/{genre}");
+            var result = rest.Get<BookDetail>($"Stat/{endpoint}/{genre}");
             foreach (var item in result)
             {
-                Console.WriteLine(item.ToString());
+                Console.WriteLine($"BookId: {item.BookId} | Title: {item.Title} | Puplication year: {item.PublicationYear} | Genre: {item.Genre}");
             }
             Console.ReadLine();
         }
@@ -481,11 +481,11 @@ namespace R9IOPN_HFT_2023241.Client
         private static void AuthorPopularities(string endpoint)
         {
             
-            var result = rest.Get<dynamic>($"Stat/{endpoint}");
+            var result = rest.Get<AuthorPopularity>($"Stat/{endpoint}");
 
             foreach (var item in result)
             {
-                Console.WriteLine(item.ToString());
+                Console.WriteLine($"AuthorId: {item.AuthorId} | Name: {item.AuthorName} | Loan count: {item.LoanCount}");
             }
             Console.ReadLine();
         }
@@ -494,11 +494,11 @@ namespace R9IOPN_HFT_2023241.Client
         {
             Console.WriteLine("Enter the searched author's ID: ");
             int authorId = int.Parse(Console.ReadLine());
-            var result = rest.Get<dynamic>($"Stat/{endpoint}/{authorId}");
+            var result = rest.Get<BookDetail>($"Stat/{endpoint}/{authorId}");
             
             foreach (var item in result)
             {
-                Console.WriteLine(item.ToString());
+                Console.WriteLine($"BookId: {item.BookId} | Title: {item.Title} | Puplication year: {item.PublicationYear} | Genre: {item.Genre}") ;
             }
             Console.ReadLine();
         }
@@ -506,11 +506,11 @@ namespace R9IOPN_HFT_2023241.Client
         private static void MostLoanedBooks(string endpoint)
         {
             
-            var result = rest.Get<dynamic>($"Stat/{endpoint}");
+            var result = rest.Get<BookLoanCount>($"Stat/{endpoint}");
             
             foreach (var item in result)
             {
-                Console.WriteLine(item.ToString());
+                Console.WriteLine($"BookId: {item.BookId} | Title: {item.Title} | Loan count: {item.LoanCount}");
             }
             Console.ReadLine();
         }
