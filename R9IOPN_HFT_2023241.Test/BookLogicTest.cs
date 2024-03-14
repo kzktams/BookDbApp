@@ -21,7 +21,7 @@ namespace R9IOPN_HFT_2023241.Test
         Mock<IRepository<Author>> mockAuthorRepo;
         Mock<IRepository<Loan>> mockLoanRepo;
         Mock<IRepository<User>> mockUserRepo;
-        //da
+        
 
         [SetUp]
         public void Init()
