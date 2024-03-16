@@ -22,7 +22,9 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <StackPanel Grid.Column="1">
+        <StackPanel Grid.Column="1" >
+            <Label Content="Name" Background="LightBlue" Padding="10"></Label>
+            <TextBox Text="{Binding SelectedBook.Title}" Padding="10" Margin="0,0,0,50"></TextBox>
             <Button Content="Create Book" Command="{Binding CreateBookCommand}" Margin="10" Padding="10"></Button>
             <Button Content="Remove Book" Command="{Binding DeleteBookCommand}" Margin="10" Padding="10"></Button>
             <Button Content="Update Book" Command="{Binding UpdateBookCommand}" Margin="10" Padding="10"></Button>

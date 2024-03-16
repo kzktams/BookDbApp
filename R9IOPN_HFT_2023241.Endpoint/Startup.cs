@@ -14,7 +14,7 @@ using Microsoft.OpenApi.Models;
 using R9IOPN_HFT_2023241.Logic;
 using R9IOPN_HFT_2023241.Models;
 using R9IOPN_HFT_2023241.Repository;
-
+using R9IOPN_HFT_2023241.Endpoint.Services;
 
 namespace R9IOPN_HFT_2023241.Endpoint
 {
@@ -40,6 +40,9 @@ namespace R9IOPN_HFT_2023241.Endpoint
             services.AddTransient<IUserLogic, UserLogic>();
             services.AddTransient<IAuthorLogic, AuthorLogic>();
             services.AddTransient<ILoanLogic, LoanLogic>();
+
+            services.AddSignalR();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -74,6 +77,7 @@ namespace R9IOPN_HFT_2023241.Endpoint
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<SignalRHub>("/hub");
             });
         }
     }

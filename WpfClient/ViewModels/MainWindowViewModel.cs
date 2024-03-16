@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
@@ -20,42 +22,73 @@ namespace WpfClient.ViewModels
         {
             get { return selectedBook; }
             set 
-            { 
-                SetProperty(ref selectedBook, value);
-                (DeleteBookCommand as RelayCommand).NotifyCanExecuteChanged();
+            {
+                if (value != null)
+                {
+                    selectedBook = new Book
+                    {
+                        Title = value.Title,
+                        BookId = value.BookId,
+                        AuthorId = value.AuthorId,
+                        Genre = value.Genre,
+                        PublicationYear = value.PublicationYear
+                    };
+                    OnPropertyChanged();
+                    (DeleteBookCommand as RelayCommand).NotifyCanExecuteChanged();
+                }
             }
         }
 
-
+        public static bool IsInDesignMode
+        {
+            get
+            {
+                var prop = DesignerProperties.IsInDesignModeProperty;
+                return (bool)DependencyPropertyDescriptor.FromProperty(prop, typeof(FrameworkElement)).Metadata.DefaultValue;
+            }
+        }
         public ICommand CreateBookCommand { get; set; }
         public ICommand DeleteBookCommand { get; set; }
         public ICommand UpdateBookCommand { get; set; }
 
         public MainWindowViewModel()
         {
-            Books = new RestCollection<Book>("http://localhost:4356/","book");
-            CreateBookCommand = new RelayCommand(
-                () =>
-                {
-                    Books.Add(new Book()
-                    {
-                        Genre = "Mystery",
-                        Title = "new title"
-                        
-                    });
-                }
-                );
 
-            DeleteBookCommand = new RelayCommand(
-                () =>
-                {
-                    Books.Delete(SelectedBook.BookId);
-                },
-                () =>
-                {
-                    return SelectedBook != null;
-                }
-                );
+            if (!IsInDesignMode)
+            {
+                
+                Books = new RestCollection<Book>("http://localhost:4356/", "book", "hub");
+                CreateBookCommand = new RelayCommand(
+                    () =>
+                    {
+                        Books.Add(new Book()
+                        {
+                            Title = SelectedBook.Title,
+
+                        });
+                    }
+                    );
+
+                UpdateBookCommand = new RelayCommand(
+                    () =>
+                    {
+                        Books.Update(SelectedBook);
+                    }
+                    );
+
+                DeleteBookCommand = new RelayCommand(
+                    () =>
+                    {
+                        Books.Delete(SelectedBook.BookId);
+                    },
+                    () =>
+                    {
+                        return SelectedBook != null;
+                    }
+                    );
+                SelectedBook = new Book();
+            }
+            
         }
     }
 }
