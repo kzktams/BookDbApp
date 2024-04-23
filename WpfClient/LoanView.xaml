@@ -1,0 +1,49 @@
+﻿<Window x:Class="WpfClient.LoanView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfClient"
+        xmlns:vm="clr-namespace:WpfClient.ViewModels"
+        mc:Ignorable="d"
+        Title="LoanView" Height="467" Width="800">
+    <Window.DataContext>
+        <vm:LoanViewModel></vm:LoanViewModel>
+    </Window.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <ListBox ItemsSource="{Binding Loans}" SelectedItem="{Binding SelectedLoan}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="{Binding LoanId}" BorderBrush="Black" BorderThickness="1"></Label>
+                        <Label Content="{Binding UserId}" BorderBrush="Black" BorderThickness="1"></Label>
+                        <Label Content="{Binding BookId}" BorderBrush="Black" BorderThickness="1"></Label>
+                        <Label Content="{Binding LoanDate}" BorderBrush="Black" BorderThickness="1"></Label>
+                        <Label Content="{Binding ReturnDate}" BorderBrush="Black" BorderThickness="1"></Label>
+                    </StackPanel>
+
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel Grid.Column="1" >
+                <Label Content="UserId" Background="LightBlue" Padding="5"></Label>
+                <TextBox Text="{Binding SelectedLoan.UserId}" Padding="10" Margin="0,0,0,50"></TextBox>
+                <Label Content="BookId" Background="LightBlue" Padding="5"></Label>
+                <TextBox Text="{Binding SelectedLoan.UserId}" Padding="10" Margin="0,0,0,50"></TextBox>
+                <Label Content="Loan Date (yyyy-mm-dd)" Background="LightBlue" Padding="5"></Label>
+                <TextBox Text="{Binding SelectedLoan.LoanDate}" Padding="10" Margin="0,0,0,50"></TextBox>
+                <Label Content="Return Date (yyyy-mm-dd)" Background="LightBlue" Padding="5"></Label>
+                <TextBox Text="{Binding SelectedLoan.ReturnDate}" Padding="10" Margin="0,0,0,50"></TextBox>
+                <Button Content="Create Loan" Command="{Binding CreateLoanCommand}" Margin="10" Padding="10"></Button>
+                <Button Content="Remove Loan" Command="{Binding DeleteLoanCommand}" Margin="10" Padding="10"></Button>
+                <Button Content="Update Update" Command="{Binding UpdateLoanCommand}" Margin="10" Padding="10"></Button>
+            </StackPanel>
+        </ScrollViewer>
+        
+    </Grid>
+</Window>
