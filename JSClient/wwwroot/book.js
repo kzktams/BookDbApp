@@ -11,11 +11,8 @@ async function getdata() {
 }
 
 
-
-
-
 function display() {
-    document.getElementById('resultarea').innerHTML = "";
+    //document.getElementById('resultarea').innerHTML = "";
     books.forEach(t => {
         document.getElementById('resultarea').innerHTML +=
             `<tr>`+
@@ -23,9 +20,14 @@ function display() {
         `<td>` + t.title + `</td>` + 
             `<td>` + t.publicationYear + `</td>` + 
             `<td>` + t.genre + `</td>` + 
-            `<td>` + t.authorId + `</td>` + 
+        `<td>` + t.authorId + `</td>` +
+        `<button type="button" onclick="remove(${t.bookId})> Remove </button>`+
             `</tr>`;
     });
+}
+
+function remove(id) {
+    alert(id);
 }
 
 function create() {
