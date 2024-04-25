@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Book UI</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <h1>Book Catalog</h1>
+
+    <div id="formdiv">
+        <label>Title</label>
+        <input type="text" id="booktitle" />
+        <label>Genre</label>
+        <input type="text" id="genre" />
+        <button type="button" onclick="create()">Add books</button>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>BookId</th>
+                <th>Title</th>
+                <th>PublicationYear</th>
+                <th>Genre</th>
+                <th>Author</th>
+            </tr>
+        </thead>
+        <tbody id="resultarea">
+
+        </tbody>
+    </table>
+    <script src="book.js"></script>
+</body>
+</html>

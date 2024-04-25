@@ -26,7 +26,9 @@ namespace R9IOPN_HFT_2023241.Logic
             {
                 throw new ArgumentException("Publication cannot be in the future");
             }
-            var validGenres = new List<string> { "Mystery", "Science Fiction", "Fantasy", "Adventure", "Horror", "Drama", "Thriller" };
+            var validGenres = new List<string> { "Mystery", "Science Fiction", "Fantasy", "Adventure", "Horror", "Drama", "Thriller",
+            "mystery", "science fiction", "fantasy", "adventure", "horror", "drama", "thriller"
+            };
             if (!validGenres.Contains(item.Genre))
             {
                 throw new ArgumentException("Genre doesn't exist");
