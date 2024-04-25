@@ -29,3 +29,22 @@
 #formdiv label{
     font-weight:bolder;
 }
+
+table button{
+    padding:3px;
+}
+
+#updateformdiv {
+    display: none;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+    #updateformdiv label, button, input {
+        margin: 10px;
+        margin: 5px;
+    }
+
+    #updateformdiv label {
+        font-weight: bolder;
+    }

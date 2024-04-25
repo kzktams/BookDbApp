@@ -16,6 +16,14 @@
         <button type="button" onclick="create()">Add books</button>
     </div>
 
+    <div id="updateformdiv">
+        <label>Title</label>
+        <input type="text" id="booktitleU" />
+        <label>Genre</label>
+        <input type="text" id="genreU" />
+        <button type="button" onclick="update()">Update book</button>
+    </div>
+
     <table>
         <thead>
             <tr>
@@ -28,9 +36,9 @@
             </tr>
         </thead>
         <tbody id="resultarea">
-
         </tbody>
     </table>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
     <script src="book.js"></script>
 </body>
 </html>
