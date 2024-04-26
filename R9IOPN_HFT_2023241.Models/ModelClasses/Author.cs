@@ -26,6 +26,10 @@ namespace R9IOPN_HFT_2023241.Models
         {
 
         }
+        public string GetFormattedBirthDate()
+        {
+            return BirthDate.ToString("yyyy-MM-dd");
+        }
     }
 
 }

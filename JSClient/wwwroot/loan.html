@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Loan UI</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <h1>Loan Catalog</h1>
+
+    <div id="formdiv">
+        <label>UserID</label>
+        <input type="text" id="userIdL" placeholder="UserID" />
+        <label>BookID</label>
+        <input type="text" id="bookIdL" placeholder="BookID" />
+        <label>Loan date</label>
+        <input type="date" id="loandateL" />
+        <label>Return date</label>
+        <input type="date" id="returndateL" />
+        <button type="button" onclick="create()">Add loans</button>
+    </div>
+
+    <div id="updateformdiv">
+        <label>UserID</label>
+        <input type="text" id="UserIdLU" placeholder="UserID" />
+        <label>BookID</label>
+        <input type="text" id="bookIdLU" placeholder="BookID"/>
+        <label>Loan date</label>
+        <input type="text" id="loandateLU" />
+        <label>Return date</label>
+        <input type="text" id="returndateLU" />
+        <button type="button" onclick="update()">Update loan</button>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>LoanId</th>
+                <th>UserId</th>
+                <th>BookId</th>
+                <th>LoanDate</th>
+                <th>ReturnDate</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="resultarea">
+        </tbody>
+    </table>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+    <script src="loan.js"></script>
+</body>
+</html>

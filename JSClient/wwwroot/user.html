@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>User UI</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <h1>User Catalog</h1>
+
+    <div id="formdiv">
+        <label>Name</label>
+        <input type="text" id="username" placeholder="Name" />
+        <label>Email</label>
+        <input type="email" id="email" placeholder="email@email.com" />
+        <label>Phone number</label>
+        <input type="text" id="phone" placeholder="+36 30 333 3333" />
+        <button type="button" onclick="create()">Add user</button>
+    </div>
+
+    <div id="updateformdiv">
+        <label>Name</label>
+        <input type="text" id="usernameU" placeholder="Name" />
+        <label>Email</label>
+        <input type="email" id="emailU" placeholder="email@email.com" />
+        <label>Phone number</label>
+        <input type="text" id="phoneU" placeholder="+36 30 333 3333" />
+        <button type="button" onclick="update()">Update book</button>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>UserId</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="resultarea">
+        </tbody>
+    </table>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+    <script src="user.js"></script>
+</body>
+</html>

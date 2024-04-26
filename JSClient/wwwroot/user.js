@@ -1,64 +1,48 @@
-﻿let books = [];
-
-let authors = [];
-
-let loans = [];
-
+﻿
 let users = [];
 
 let connection = null;
 
-let bookIdToUpdate;
-
-let authorIdToUpdate;
+let userIdToUpdate;
 
 getdata();
 setupSignalR();
 
 
 function setupSignalR() {
-     connection = new signalR.HubConnectionBuilder()
+    connection = new signalR.HubConnectionBuilder()
         .withUrl("http://localhost:4356/hub")
         .configureLogging(signalR.LogLevel.Information)
         .build();
 
-    connection.on("BookCreated", (user, message) => {
+    connection.on("UserCreated", (user, message) => {
         getdata();
     });
 
-    connection.on("BookDeleted", (user, message) => {
+    connection.on("UserDeleted", (user, message) => {
         getdata();
     });
 
-    connection.on("BookUpdated", (user, message) => {
+    connection.on("UserUpdated", (user, message) => {
         getdata();
     });
 
-    connection.on("AuthorCreated", (user, message) => {
-        getdata();
-    });
-
-    connection.on("AuthorDeleted", (user, message) => {
-        getdata();
-    });
-
-    connection.on("AuthorUpdated", (user, message) => {
-        getdata();
-    });
+    
 
     connection.onclose
-        (async () => {await start();
+        (async () => {
+            await start();
         });
     start();
 
 }
 
 async function getdata() {
-    await fetch('http://localhost:4356/book')
+    await fetch('http://localhost:4356/user')
         .then(x => x.json())
         .then(y => {
-            books = y;
-            //console.log(books);
+            users = y;
+            //console.log(users);
             display();
         });
 
@@ -76,29 +60,29 @@ async function start() {
 
 function display() {
     document.getElementById('resultarea').innerHTML = "";
-    books.forEach(t => {
+    users.forEach(t => {
         document.getElementById('resultarea').innerHTML +=
-            `<tr>`+
-        `<td>` + t.bookId + `</td>` +
-        `<td>` + t.title + `</td>` + 
-            `<td>` + t.publicationYear + `</td>` + 
-            `<td>` + t.genre + `</td>` + 
-        `<td>` + t.authorId + `</td>` +
-        `<td><button type="button" onclick="remove(${t.bookId})">Delete</button>` +
-        `<button type="button" onclick="showupdate(${t.bookId})">Update</button></td>` +
+            `<tr>` +
+            `<td>` + t.userId + `</td>` +
+            `<td>` + t.name + `</td>` +
+            `<td>` + t.email + `</td>` +
+            `<td>` + t.phone + `</td>` +
+        `<td><button type="button" onclick="remove(${t.userId})">Delete</button>` +
+        `<button type="button" onclick="showupdate(${t.userId})">Update</button></td>` +
             `</tr>`;
     });
 }
 
 function showupdate(id) {
-    document.getElementById('booktitleU').value = books.find(t => t['bookId'] == id)['title'];
-    document.getElementById('genreU').value = books.find(t => t['bookId'] == id)['genre'];
+    document.getElementById('usernameU').value = users.find(t => t['userId'] == id)['name'];
+    document.getElementById('emailU').value = users.find(t => t['userId'] == id)['email'];
+    document.getElementById('phoneU').value = users.find(t => t['userId'] == id)['phone'];
     document.getElementById('updateformdiv').style.display = 'flex';
-    bookIdToUpdate = id;
+    userIdToUpdate = id;
 }
 
 function remove(id) {
-    fetch('http://localhost:4356/book/' + id, {
+    fetch('http://localhost:4356/user/' + id, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
@@ -116,17 +100,19 @@ function remove(id) {
 }
 
 function create() {
-    let title = document.getElementById('booktitle').value;
-    let genre = document.getElementById('genre').value;
-    fetch('http://localhost:4356/book', {
+    let name = document.getElementById('username').value;
+    let email = document.getElementById('email').value;
+    let phone = document.getElementById('phone').value;
+    fetch('http://localhost:4356/user', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(
             {
-                title: title,
-                genre: genre
+                name: name,
+                email: email,
+                phone: phone
             }),
     })
         .then(response => response)
@@ -137,23 +123,25 @@ function create() {
         .catch((error) => {
             console.error('Error:', error);
         });
-    
+
 }
 
 function update() {
     document.getElementById('updateformdiv').style.display = 'none';
-    let title = document.getElementById('booktitleU').value;
-    let genre = document.getElementById('genreU').value;
-    fetch('http://localhost:4356/book', {
+    let name = document.getElementById('usernameU').value;
+    let email = document.getElementById('emailU').value;
+    let phone = document.getElementById('phoneU').value;
+    fetch('http://localhost:4356/user', {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(
             {
-                bookId: bookIdToUpdate,
-                title: title,
-                genre: genre
+                userId: userIdToUpdate,
+                name: name,
+                email: email,
+                phone: phone
             }),
     })
         .then(response => response)

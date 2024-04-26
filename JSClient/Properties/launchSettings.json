@@ -9,18 +9,18 @@
   },
   "profiles": {
     "IIS Express": {
-      "commandName": "IISExpress",
+        "commandName": "IISExpress",
         "launchBrowser": true,
-      "launchUrl": "book.html",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+        "launchUrl": "home.html",
+        "environmentVariables": {
+            "ASPNETCORE_ENVIRONMENT": "Development"
+        }
     },
     "JSClient": {
         "commandName": "Project",
         "dotnetRunMessages": "true",
         "launchBrowser": true,
-        "launchUrl": "book.html",
+        "launchUrl": "home.html",
         "applicationUrl": "http://localhost:5000",
         "environmentVariables": {
             "ASPNETCORE_ENVIRONMENT": "Development"

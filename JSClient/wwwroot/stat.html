@@ -1,0 +1,171 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="style.css" />
+    <title></title>
+</head>
+<body>
+    <h1>Most popular authors by loans</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>AuthorId</th>
+                <th>AuthorName</th>
+                <th>LoanCount</th>
+            </tr>
+        </thead>
+        <tbody id="resultarea">
+        </tbody>
+    </table>
+    <hr />
+    <h1>Most loaned book</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>BookId</th>
+                <th>Title</th>
+                <th>LoanCount</th>
+            </tr>
+        </thead>
+        <tbody id="mostloanedbooks">
+        </tbody>
+    </table>
+    <hr />
+    <h1>User activities</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>UserId</th>
+                <th>Name</th>
+                <th>LoanCount</th>
+            </tr>
+        </thead>
+        <tbody id="activities">
+        </tbody>
+    </table>
+    <hr />
+
+    <div>
+        <h1>Search authors by their name</h1>
+        <input type="text" id="searchauthorbyname" placeholder="Name" />
+        <button type="button" onclick="getsearchauthor()"> Search author</button>
+        <div id="ifnot"></div>
+        <div id="authorreults">
+            <table>
+                <thead>
+                    <tr>
+                        <th>AuthorId</th>
+                        <th>Name</th>
+                        <th>BirthDate</th>
+                        <th>Country</th>
+                        <th>BookCount</th>
+                    </tr>
+                </thead>
+                <tbody id="searchauthorresult">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <hr />
+
+    <div>
+        <h1>Search loans between dates</h1>
+        <label>Strart date</label>
+        <input type="date" id="startdate" />
+        <label>End date</label>
+        <input type="date" id="enddate" />
+        <button type="button" onclick="getbetweendates()">Search between dates</button>
+        <div id="loandateresult">
+            <table>
+                <thead>
+                    <tr>
+                        <th>BookId</th>
+                        <th>Title</th>
+                        <th>PublicationYear</th>
+                        <th>Genre</th>
+                    </tr>
+                </thead>
+                <tbody id="searchbetweendate">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <hr />
+
+    <div>
+        <h1>Search books by genre</h1>
+        <select id="genreselection">
+            <option>Mystery</option>
+            <option>Science Fiction</option>
+            <option>Fantasy</option>
+            <option>Adventure</option>
+            <option>Horror</option>
+            <option>Drama</option>
+            <option>Thriller</option>
+        </select>
+        <button type="button" onclick="getbygenre()">Search books by genre</button>
+        <div id="genre">
+            <table>
+                <thead>
+                    <tr>
+                        <th>BookId</th>
+                        <th>Title</th>
+                        <th>PublicationYear</th>
+                        <th>Genre</th>
+                    </tr>
+                </thead>
+                <tbody id="searchbygenre">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <hr />
+
+    <div>
+        <h1>Search books by author</h1>
+        <input type="text" id="searchbooksbyauthor" placeholder="AuthorId" />
+        <button type="button" onclick="getbooksbyauthor()"> Search books by author</button>
+        <div id="ifnot"></div>
+        <div id="byauthorresults">
+            <table>
+                <thead>
+                    <tr>
+                        <th>BookId</th>
+                        <th>Title</th>
+                        <th>PublicationYear</th>
+                        <th>Genre</th>
+                    </tr>
+                </thead>
+                <tbody id="byauthorresult">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <hr />
+    <div>
+        <h1>Loan by user</h1>
+        <input type="text" id="userid" placeholder="UserId" />
+        <button type="button" onclick="getbooksbyUser()"> Search by userId</button>
+        <div id="ifnot"></div>
+        <div id="byuser">
+            <table>
+                <thead>
+                    <tr>
+                        <th>BookId</th>
+                        <th>BookTitle</th>
+                        <th>UserName</th>
+                        <th>LoanDate</th>
+                        <th>ReturnDate</th>
+                    </tr>
+                </thead>
+                <tbody id="byuserresult">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="stat.js"></script>
+</body>
+</html>

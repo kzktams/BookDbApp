@@ -48,3 +48,49 @@ table button{
     #updateformdiv label {
         font-weight: bolder;
     }
+#authorreults{
+    display:none;
+}
+#loandateresult{
+    display:none;
+}
+#genre {
+    display: none;
+}
+#byauthorresults{
+    display:none;
+}
+#byuser {
+    display: none;
+}
+
+
+
+#formdivA {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+    #formdivA label, button, input {
+        margin: 10px;
+        margin: 5px;
+    }
+
+    #formdivA label {
+        font-weight: bolder;
+    }
+#updateformdivA {
+    display: none;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+    #updateformdivA label, button, input {
+        margin: 10px;
+        margin: 5px;
+    }
+
+    #updateformdivA label {
+        font-weight: bolder;
+    }
