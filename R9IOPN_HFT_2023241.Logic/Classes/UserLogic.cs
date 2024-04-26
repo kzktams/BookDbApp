@@ -51,7 +51,9 @@ namespace R9IOPN_HFT_2023241.Logic
 
         public IEnumerable<UserActivity> GetMostActiveUsers()
         {
+            var existingUserIds = new HashSet<int>(_userRepository.ReadAll().Select(u => u.UserId));
             var userLoanCounts = _loanRepository.ReadAll()
+                                                .Where(loan => existingUserIds.Contains(loan.UserId))
                                                 .GroupBy(loan => loan.UserId)
                                                 .Select(group => new
                                                 {

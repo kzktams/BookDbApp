@@ -87,27 +87,34 @@ namespace R9IOPN_HFT_2023241.Logic
         public IEnumerable<BookLoanCount> GetMostLoanedBooks()
         {
             var loanCounts = _loanRepository.ReadAll()
-                                    .GroupBy(loan => loan.BookId)
-                                    .Select(group => new
-                                    {
-                                        BookId = group.Key,
-                                        LoanCount = group.Count()
-                                    })
-                                    .OrderByDescending(x => x.LoanCount) 
-                                    .Take(5) 
-                                    .ToList();
+                .GroupBy(loan => loan.BookId)
+                .Select(group => new
+                {
+                    BookId = group.Key,
+                    LoanCount = group.Count()
+                })
+                .OrderByDescending(x => x.LoanCount)
+                .Take(5)
+                .ToList();
 
-            
-            var mostLoanedBooks = loanCounts.Select(loanCount =>
-                new BookLoanCount
+            // Lekérdezzük az összes szükséges könyvet egyszerre
+            var bookIds = loanCounts.Select(l => l.BookId).ToList();
+            var books = _bookRepository.ReadAll()
+                .Where(book => bookIds.Contains(book.BookId))
+                .ToDictionary(book => book.BookId, book => book.Title);
+
+            // Csak a létező könyvekkel térünk vissza
+            var mostLoanedBooks = loanCounts.Where(l => books.ContainsKey(l.BookId))
+                .Select(loanCount => new BookLoanCount
                 {
                     BookId = loanCount.BookId,
-                    Title = _bookRepository.ReadAll().FirstOrDefault(b => b.BookId == loanCount.BookId)?.Title,
+                    Title = books[loanCount.BookId],
                     LoanCount = loanCount.LoanCount
                 });
 
-            return mostLoanedBooks.Take(1);
+            return mostLoanedBooks;
         }
+
 
         //Listing the books by the given genre
         public IEnumerable<BookDetail> GetBooksByGenre(string genre)

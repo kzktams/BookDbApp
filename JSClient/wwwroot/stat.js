@@ -6,48 +6,10 @@ let between = [];
 let bygenre = [];
 let booksbyauthor = [];
 let booksbyuser = [];
-let connection = null;
 getdata();
-setupSignalR();
 
 
-function setupSignalR() {
-    connection = new signalR.HubConnectionBuilder()
-        .withUrl("http://localhost:4356/hub")
-        .configureLogging(signalR.LogLevel.Information)
-        .build();
 
-    connection.on("GotBooksByAuthor", (user, message) => {
-        getdata();
-    });
-
-    connection.on("GotMostLoanedBooks", (user, message) => {
-        getdata();
-    });
-
-    connection.on("GotBooksByGenre", (user, message) => {
-        getdata();
-    });
-
-    
-
-    connection.onclose
-        (async () => {
-            await start();
-        });
-    start();
-
-}
-
-async function start() {
-    try {
-        await connection.start();
-        console.log("SignalR Connected.");
-    } catch (err) {
-        console.log(err);
-        setTimeout(start, 5000);
-    }
-};
 
 async function getdata() {
     await fetch('http://localhost:4356/Stat/AuthorPopularities')

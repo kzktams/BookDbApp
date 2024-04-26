@@ -86,6 +86,7 @@ namespace R9IOPN_HFT_2023241.Logic
 
         public IEnumerable<AuthorPopularity> GetMostPopularAuthors()
         {
+            var existingauthorIds = new HashSet<int>(_authorRepository.ReadAll().Select(i => i.AuthorId));
             var authorLoanCounts = _loanRepository.ReadAll()
                                                  .GroupBy(l => l.Book.AuthorId)
                                                  .Select(group => new
