@@ -19,11 +19,11 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <Label Content="{Binding LoanId}" BorderBrush="Black" BorderThickness="1"></Label>
-                        <Label Content="{Binding UserId}" BorderBrush="Black" BorderThickness="1"></Label>
-                        <Label Content="{Binding BookId}" BorderBrush="Black" BorderThickness="1"></Label>
-                        <Label Content="{Binding LoanDate}" BorderBrush="Black" BorderThickness="1"></Label>
-                        <Label Content="{Binding ReturnDate}" BorderBrush="Black" BorderThickness="1"></Label>
+                        <Label Content="{Binding LoanId}" ContentStringFormat="LoanId: {0}" BorderBrush="Black" BorderThickness="1"></Label>
+                        <Label Content="{Binding UserId}" ContentStringFormat="UserId: {0}" BorderBrush="Black" BorderThickness="1"></Label>
+                        <Label Content="{Binding BookId}" ContentStringFormat="BookId: {0}" BorderBrush="Black" BorderThickness="1"></Label>
+                        <Label Content="{Binding LoanDate}" ContentStringFormat="LoanDate: {0}" BorderBrush="Black" BorderThickness="1"></Label>
+                        <Label Content="{Binding ReturnDate}" ContentStringFormat="ReturnDate: {0}" BorderBrush="Black" BorderThickness="1"></Label>
                     </StackPanel>
 
                 </DataTemplate>
@@ -32,13 +32,13 @@
         <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
             <StackPanel Grid.Column="1" >
                 <Label Content="UserId" Background="LightBlue" Padding="5"></Label>
-                <TextBox Text="{Binding SelectedLoan.UserId}" Padding="10" Margin="0,0,0,50"></TextBox>
+                <TextBox Text="{Binding SelectedLoan.UserId}" Padding="10" Margin="0,0,0,10"></TextBox>
                 <Label Content="BookId" Background="LightBlue" Padding="5"></Label>
-                <TextBox Text="{Binding SelectedLoan.UserId}" Padding="10" Margin="0,0,0,50"></TextBox>
+                <TextBox Text="{Binding SelectedLoan.UserId}" Padding="10" Margin="0,0,0,10"></TextBox>
                 <Label Content="Loan Date (yyyy-mm-dd)" Background="LightBlue" Padding="5"></Label>
-                <TextBox Text="{Binding SelectedLoan.LoanDate}" Padding="10" Margin="0,0,0,50"></TextBox>
+                <TextBox Text="{Binding SelectedLoan.LoanDate}" Padding="10" Margin="0,0,0,10"></TextBox>
                 <Label Content="Return Date (yyyy-mm-dd)" Background="LightBlue" Padding="5"></Label>
-                <TextBox Text="{Binding SelectedLoan.ReturnDate}" Padding="10" Margin="0,0,0,50"></TextBox>
+                <TextBox Text="{Binding SelectedLoan.ReturnDate}" Padding="10" Margin="0,0,0,10"></TextBox>
                 <Button Content="Create Loan" Command="{Binding CreateLoanCommand}" Margin="10" Padding="10"></Button>
                 <Button Content="Remove Loan" Command="{Binding DeleteLoanCommand}" Margin="10" Padding="10"></Button>
                 <Button Content="Update Update" Command="{Binding UpdateLoanCommand}" Margin="10" Padding="10"></Button>

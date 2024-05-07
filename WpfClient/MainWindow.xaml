@@ -18,13 +18,26 @@
         <ListBox ItemsSource="{Binding Books}" SelectedItem="{Binding SelectedBook}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Label Content="{Binding Title}"></Label>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="{Binding BookId}"></Label>
+                        <TextBlock Text="-"></TextBlock>
+                        <Label Content="{Binding Title}"></Label>
+                        <TextBlock Text="-"></TextBlock>
+                        <Label Content="{Binding Genre}"></Label>
+                        <TextBlock Text="-"></TextBlock>
+                        <Label Content="{Binding PublicationYear}"></Label>
+                        <TextBlock Text="-"></TextBlock>
+                    </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
         <StackPanel Grid.Column="1" >
             <Label Content="Name" Background="LightBlue" Padding="10"></Label>
-            <TextBox Text="{Binding SelectedBook.Title}" Padding="10" Margin="0,0,0,50"></TextBox>
+            <TextBox Text="{Binding SelectedBook.Title}" Padding="10" Margin="0,0,0,10"></TextBox>
+            <Label Content="Genre" Background="LightBlue" Padding="10"></Label>
+            <TextBox Text="{Binding SelectedBook.Genre}" Padding="10" Margin="0,0,0,10"></TextBox>
+            <Label Content="PublicationYear" Background="LightBlue" Padding="10"></Label>
+            <TextBox Text="{Binding SelectedBook.PublicationYear}" Padding="10" Margin="0,0,0,10"></TextBox>
             <Button Content="Create Book" Command="{Binding CreateBookCommand}" Margin="10" Padding="10"></Button>
             <Button Content="Remove Book" Command="{Binding DeleteBookCommand}" Margin="10" Padding="10"></Button>
             <Button Content="Update Book" Command="{Binding UpdateBookCommand}" Margin="10" Padding="10"></Button>

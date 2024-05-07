@@ -94,3 +94,47 @@ table button{
     #updateformdivA label {
         font-weight: bolder;
     }
+
+#center-menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    flex-direction: column;
+}
+
+#center-menu a {
+    margin: 10px;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: white;
+    background-color: #007BFF;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    }
+
+#center-menu a:hover {
+    background-color: #0056b3;
+    }
+
+.pretty-nav {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+}
+
+    .pretty-nav a {
+        margin: 0 20px;
+        padding: 10px 20px;
+        text-decoration: none;
+        color: white;
+        background-color: lightcyan;
+        color: black;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+        .pretty-nav a:hover {
+            background-color: #0056b3;
+            color: white;
+        }

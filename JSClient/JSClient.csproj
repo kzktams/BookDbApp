@@ -4,4 +4,16 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Content Remove="wwwroot\navbar.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\navbar.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\navbar.js" />
+  </ItemGroup>
+
 </Project>

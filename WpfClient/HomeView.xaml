@@ -17,6 +17,5 @@
             <Button Content="Users" Padding="10" Margin="100,20,100,5" Command="{Binding OpenUsers}"/>
             <Button Content="Statistics" Padding="10" Margin="100,20,100,5" Command="{Binding OpenNonCruds}"/>
         </StackPanel>
-        
     </Grid>
 </Window>

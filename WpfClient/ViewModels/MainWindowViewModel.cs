@@ -15,6 +15,7 @@ namespace WpfClient.ViewModels
     public class MainWindowViewModel : ObservableRecipient
     {
         public RestCollection<Book> Books { get; set; }
+        public RestCollection<Author> Authors { get; set; }
 
         private Book selectedBook;
 
@@ -64,7 +65,8 @@ namespace WpfClient.ViewModels
                         Books.Add(new Book()
                         {
                             Title = SelectedBook.Title,
-
+                            Genre = selectedBook.Genre,
+                            PublicationYear = selectedBook.PublicationYear
                         });
                     }
                     );

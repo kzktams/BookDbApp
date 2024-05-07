@@ -86,25 +86,32 @@ namespace R9IOPN_HFT_2023241.Logic
 
         public IEnumerable<AuthorPopularity> GetMostPopularAuthors()
         {
-            var existingauthorIds = new HashSet<int>(_authorRepository.ReadAll().Select(i => i.AuthorId));
             var authorLoanCounts = _loanRepository.ReadAll()
-                                                 .GroupBy(l => l.Book.AuthorId)
-                                                 .Select(group => new
-                                                 {
-                                                     AuthorId = group.Key,
-                                                     LoanCount = group.Count()
-                                                 })
-                                                 .OrderByDescending(x => x.LoanCount)
-                                                 .ToList();
+                                         .GroupBy(l => l.Book.AuthorId)
+                                         .Select(group => new
+                                         {
+                                             AuthorId = group.Key,
+                                             LoanCount = group.Count()
+                                         })
+                                         .OrderByDescending(x => x.LoanCount)
+                                         .ToList();
 
-            var popularAuthors = authorLoanCounts
-                .Select(lc => new AuthorPopularity
-                {
-                    AuthorId = lc.AuthorId,
-                    AuthorName = _authorRepository.Read(lc.AuthorId).Name,
-                    LoanCount = lc.LoanCount
-                })
-                ;
+            // Gyűjtsük össze az összes szerző azonosítót
+            var authorIds = authorLoanCounts.Select(a => a.AuthorId).Distinct().ToList();
+
+            // Lekérjük egyszerre az összes releváns szerzőt
+            var authors = _authorRepository.ReadAll()
+                                           .Where(author => authorIds.Contains(author.AuthorId))
+                                           .ToDictionary(author => author.AuthorId, author => author.Name);
+
+            // Csak a létező szerzőkkel térünk vissza
+            var popularAuthors = authorLoanCounts.Where(lc => authors.ContainsKey(lc.AuthorId))
+                                                 .Select(lc => new AuthorPopularity
+                                                 {
+                                                     AuthorId = lc.AuthorId,
+                                                     AuthorName = authors[lc.AuthorId],
+                                                     LoanCount = lc.LoanCount
+                                                 });
 
             return popularAuthors;
         }

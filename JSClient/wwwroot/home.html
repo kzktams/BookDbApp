@@ -5,11 +5,49 @@
     <link rel="stylesheet" href="style.css" />
     <title>Homepage</title>
 </head>
+
 <body>
-    <a href="book.html">Books</a>
-    <a href="author.html">Authors</a>
-    <a href="loan.html">Loans</a>
-    <a href="user.html">Users</a>
-    <a href="stat.html">Statistics</a>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .center-menu {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            flex-direction: column;
+        }
+
+            .center-menu a {
+                width: 150px;
+                height: 50px;
+                line-height: 50px;
+                margin: 10px;
+                padding: 0;
+                text-decoration: none;
+                color: white;
+                color: black;
+                background-color: lightcyan;
+                border-radius: 5px;
+                transition: background-color 0.3s;
+                text-align: center;
+                display: block;
+            }
+
+        .center-menu a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <div class="center-menu">
+        <a href="book.html">Books</a>
+        <a href="author.html">Authors</a>
+        <a href="loan.html">Loans</a>
+        <a href="user.html">Users</a>
+        <a href="stat.html">Statistics</a>
+    </div>
 </body>
 </html>
